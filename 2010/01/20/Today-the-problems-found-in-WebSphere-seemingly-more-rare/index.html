@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>萨内蒂的小跟班的Blog - 今天发现的WebSphere的问题，貌似比较少见</title>
+  <meta name="author" content="萨内蒂的小跟班">
+  <meta name="google-site-verification" content="uaGTPOw73Z3eXJl5pFA2CFjhv7chVxHEeqWFVGQBSAE" />
+
+  <link href="https://imsizon.com/rss.xml" type="application/rss+xml" rel="alternate"
+        title="萨内蒂的小跟班的Blog RSS Feed" />
+
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link href="../../../../favicon.ico" rel="icon">
+  <link href="../../../../theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="../../../../">萨内蒂的小跟班的Blog</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="https://imsizon.com/rss.xml" rel="subscribe-rss">RSS</a></li>
+</ul>
+
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:imsizon.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/archives.html">Archives</a></li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">今天发现的WebSphere的问题，貌似比较少见</h1>
+    <p class="meta">
+<time datetime="2010-01-20T02:53:00" pubdate>三, 20  1, 2010</time>    </p>
+</header>
+
+<div class="entry-content">
+  <p><p>今天通过StartServer.bat启动某项目的WebSphere服务时，进程执行到“服务已启动，等待状态初始化”时就假死卡住不动了，按照正常步骤下面会提示“已开放电子商务端口XXX，进程ID XXX”，加上查看系统的应用程序日志也看到了熟悉的“Could not determine the process id of the java process.Changing the IBMWAS5Service - Tivoli Agent Manager service status to the "stopped" state. To prevent this error, try recreating this service with the -logRoot parameter. The value of the logRoot parameter should be the directory in which the server's .pid file is created. ”错误，于是以为Websphere又在抽风了。</p> <p>按照往常经验，首先检查启动时java.exe的进程数，正常，再检查数据库链接，正常，检查logs目录下面的一坨日志，也没有报任何错误，甚至还能看到应用正常启动时log4j打印的日志，重启服务器，重启服务，依然是卡在那一步。一边折腾，一边google其他处理方案，3个人折腾了3、4个小时，依然未果。</p> <p>就在准备重装Websphere之前，抱着死马当活马医的心态把应用安装目录的文件夹名字改了一下重启服务，Websphere报了一下找不到应用路径之后居然神奇的启动起来了。这下赶紧检查应用是不是出了什么问题，在本地用tomcat一加载，发现居然是合作公司的webservice接口服务当掉了，tomcat很干脆的就报了一个wsdl文件无法解析和连接超时的错误。项目使用的是xfire结合spring调用对方的Webservice接口，接口类的定义都在spring的配置文件里面，应用启动spring初始化接口类的bean时，由于对方的服务无法访问，websphere既不报错，也不设个timeout的实现，就傻愣愣的卡在那儿。这下几个人狂汗一通，赶紧联系合作公司检查Webservice接口。哎，该说这是Websphere的bug呢，还是说它太强大了呢……</p> <p>经查，Websphere6.0和Websphere6.1系列都有同样的问题，看到本文的同学在遇到这个问题时赶紧检查检查自己的应用吧。</p> </p>
+</div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        萨内蒂的小跟班
+    </span>
+  </span>
+<time datetime="2010-01-20T02:53:00" pubdate>三, 20  1, 2010</time>  <span class="categories">
+    <a class='category' href="../../../../category/java.html"> java </a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="../../../../2014/03/28/replace-octopress-with-pelican/">再次折腾blog，从Octopress迁移到pelican</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/10/26/extending-ant-to-build-scala-android-app/">暂时还是用ANT打包SCALA写的ANDROID应用吧</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/08/02/System-Scripting-with-Scala/">Shell脚本中加点scala的料</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/09/Reserved-when-losing-has-become-a-habit/">【转载】当输球已成为一种习惯</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/">防火墙配置引起的outlook2010只能接收邮件不能发送邮件问题</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+      <li><a href="../../../../category/android-dev.html"> Android-dev </a></li>
+      <li><a href="../../../../category/application.html"> 软件应用 </a></li>
+      <li><a href="../../../../category/football.html"> 足球 </a></li>
+      <li><a href="../../../../category/images.html"> 影像生活 </a></li>
+      <li><a href="../../../../category/java.html"> java </a></li>
+      <li><a href="../../../../category/miscellanies.html"> 杂记 </a></li>
+      <li><a href="../../../../category/mood.html"> 心情 </a></li>
+      <li><a href="../../../../category/movies.html"> Movies </a></li>
+      <li><a href="../../../../category/music.html"> Music </a></li>
+      <li><a href="../../../../category/tips.html"> 奇技淫巧 </a></li>
+      <li><a href="../../../../category/toolbox.html"> 懒人工具箱 </a></li>
+      <li><a href="../../../../category/ubuntu.html"> Ubuntu </a></li>
+      <li><a href="../../../../category/words.html"> 片言只语 </a></li>
+    </ul>
+  </section>
+ 
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="https://twitter.com/imsizon" target="_blank">Twitter</a></li>
+            <li><a href="https://plus.google.com/106603495406797618212" target="_blank">Google+</a></li>
+        </ul>
+    </section>
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2009&ndash;2014  萨内蒂的小跟班 &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="../../../../theme/js/modernizr-2.0.js"></script>
+  <script src="../../../../theme/js/ender.js"></script>
+  <script src="../../../../theme/js/octopress.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11945266-2']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11945266-2');
+    ga('send', 'pageview');
+</script>
+	<script type="text/javascript">
+	  var disqus_shortname = 'imsizon';
+          var disqus_identifier = 'http://imsizon.com/2010/01/20/Today-the-problems-found-in-WebSphere-seemingly-more-rare/';
+          var disqus_url = '../../../../2010/01/20/Today-the-problems-found-in-WebSphere-seemingly-more-rare/';
+          var disqus_title = '今天发现的WebSphere的问题，貌似比较少见';
+	  (function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	   })();
+	</script>
+</body>
+</html>

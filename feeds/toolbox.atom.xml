@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>萨内蒂的小跟班的Blog</title><link href="https://imsizon.com/" rel="alternate"></link><link href="https://imsizon.com/feeds/toolbox.atom.xml" rel="self"></link><id>https://imsizon.com/</id><updated>2009-12-24T20:21:00+08:00</updated><entry><title>Firefox-portable版本下载及附件组件安装</title><link href="https://imsizon.com/2009/12/24/Firefox-portable-version-of-the-download-and-installation-of-additional-components/" rel="alternate"></link><updated>2009-12-24T20:21:00+08:00</updated><author><name>萨内蒂的小跟班</name></author><id>tag:imsizon.com,2009-12-24:2009/12/24/Firefox-portable-version-of-the-download-and-installation-of-additional-components/</id><summary type="html">&lt;p&gt;&lt;p&gt;上文《&lt;a href="./../post/12003"&gt;本博留言自动填写昵称、email和网址的GM脚本&lt;/a&gt;》推出后受到各位同学的欢迎，可是有部分同学还在受着ie的毒害，没有享受到使用Firefox的快感，因此小跟班不辞劳苦，克服了一贯的懒惰状态，发出此文。&lt;/p&gt; &lt;p&gt;1、Firefox的安装。其实google和百度可以告诉你哪儿能下载安装包，但是，作为一个懒人，能不安装的软件为什么要安装呢？所以，小跟班推荐Firefox Portable版本，放到U盘里就可以到处使用了。下载地址在&lt;a target="_blank" href="http://portableapps.com/apps/internet/firefox_portable/localization"&gt;这里&lt;/a&gt;，第一个就是简体中文版的下载链接。下载的文件是一个exe安装包，正常安装就好了，其实应该是一个自解压文件，安装好之后拷贝到其他地方依然可以正常使用的。&lt;/p&gt; &lt;p&gt;2、默认安装好的Firefox相比Maxthon之类的加强版ie还是有差距滴，所以，来给它加一些组件吧。小跟班制作了一个收藏集，可以一次安装常用的组件，请使用Firefox打开&lt;a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/collection/c3303cc9-c41f-ebfc-8855-2ee8537ac502"&gt;传送门&lt;/a&gt;。打开页面之后可以看到小跟班平常使用的组件了，每个组件后面都有一个大大的绿色按钮“添加到Firefox”。&lt;/p&gt; &lt;p&gt;好吧，这下你可以回到上一篇文章继续折腾本博的GM脚本了，顺带可以享受Firefox给你带来的其他快感。&lt;br /&gt; &lt;/p&gt; &lt;/p&gt;</summary></entry><entry><title>本博留言自动填写昵称、email和网址的GM脚本</title><link href="https://imsizon.com/2009/12/24/Automatically-fill-in-the-nickname-Bo-messages-email-and-web-site-GM-script/" rel="alternate"></link><updated>2009-12-24T06:29:00+08:00</updated><author><name>萨内蒂的小跟班</name></author><id>tag:imsizon.com,2009-12-24:2009/12/24/Automatically-fill-in-the-nickname-Bo-messages-email-and-web-site-GM-script/</id><summary type="html">&lt;p&gt;&lt;p&gt;每次回复留言的时候都要重复输入自己的昵称和邮箱，既浪费体力，又减少了键盘的寿命，那有木有什么方法可以减去这个步骤呢？&lt;/p&gt; &lt;p&gt;鉴于目前访问本博的几位同学中使用Firefox的较多，所以爱偷懒的小跟班同学将目光瞄向了Greasemonkey（呃？这是啥？&lt;a target="_blank" href="http://baike.baidu.com/view/1383641.html?wtp=tt"&gt;百度知道！&lt;/a&gt;），写了一个极其简单的GM脚本。想和小跟班一样偷懒的同学请跟着以下步骤操作：&lt;/p&gt; &lt;p&gt;1、安装Greasemonkey：打开Firefox，访问&lt;a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/addon/748"&gt;Greasemonkey的插件发布页&lt;/a&gt;，点击“添加到Firefox”，安装并且重启Firefox。重启之后在Firefox的菜单“工具”栏中应该已经出现“Greasemonkey”的选项了，如果开启了状态栏，在状态栏上也会出现一个猴子头的图标，这样就说明安装成功啦。当然，已经安装过的同学就跳过这一步吧。&lt;/p&gt; &lt;p&gt;2、点击“工具”-“Greasemonkey”-“新建用户脚本”，或者在状态栏的猴子头上右键选择“新建用户脚本”，会出现一个新建用户脚本的对话框，在“名字”一栏随便输入一个值确认即可。此时会提示你选择一个编辑器，选择系统自带的记事本即可，或者你常用的其他文本编辑器。选择之后Firefox就会调用你选择的编辑器打开刚刚创建的脚本，内容大概如下：&lt;/p&gt;&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// ==UserScript==&lt;/span&gt;
+&lt;span class="c1"&gt;// @name samplename&lt;/span&gt;
+&lt;span class="c1"&gt;// @namespace http://www.sina.com.cn/&lt;/span&gt;
+&lt;span class="c1"&gt;// @include http://www.sina.com.cn/*&lt;/span&gt;
+&lt;span class="c1"&gt;// ==/UserScript==&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;3、将以下代码复制粘贴到编辑器中覆盖原先的内容，将其中的“yourname”、“your email”换成自己的昵称和email保存即可，如果有自己的网站的话将最后一行的“//”去掉，并且替换“you site url if you have one”为你自己的网站地址：&lt;/p&gt;
+
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// ==UserScript==&lt;/span&gt;
+&lt;span class="c1"&gt;// @name imsizon_auto_fill_username&lt;/span&gt;
+&lt;span class="c1"&gt;// @namespace http://www.imsizon.com/post/&lt;/span&gt;
+&lt;span class="c1"&gt;// @description imsizon.com留言时自动填写昵称、email和link&lt;/span&gt;
+&lt;span class="c1"&gt;// @include http://www.imsizon.com/post/*&lt;/span&gt;
+&lt;span class="c1"&gt;// ==/UserScript==&lt;/span&gt;
+&lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;author&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;yourname&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;email&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;your email&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;//document.getElementById(&amp;#39;url&amp;#39;).value=&amp;#39;you site url if you have one&amp;#39;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;4、打开小跟班的博客随便进入一篇文章，看看下面的评论栏是不是已经自动填上了你的昵称、email等信息？（什么？没有？检查一下“工具”-“Greasemonkey”中“启用”是否勾上了。还不行的话，请参照以上步骤再来一次吧）&lt;/p&gt;
+
+&lt;p&gt;&lt;p&gt;嗯，这下各位同学是不是可以将更多精力放到敲打留言上啦？&lt;/p&gt; &lt;/p&gt;</summary></entry></feed>

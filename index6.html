@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>萨内蒂的小跟班的Blog</title>
+  <meta name="author" content="萨内蒂的小跟班">
+  <meta name="google-site-verification" content="uaGTPOw73Z3eXJl5pFA2CFjhv7chVxHEeqWFVGQBSAE" />
+
+  <link href="https://imsizon.com/rss.xml" type="application/rss+xml" rel="alternate"
+        title="萨内蒂的小跟班的Blog RSS Feed" />
+
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link href="./favicon.ico" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">萨内蒂的小跟班的Blog</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="https://imsizon.com/rss.xml" rel="subscribe-rss">RSS</a></li>
+</ul>
+
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:imsizon.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/archives.html">Archives</a></li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div class="blog-index">
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="./2009/12/23/Their-application-in-WebSphere-published-summary-of-the-problems-encountered/">自己在WebSphere中发布应用时碰到的问题总结</a>
+      </h1>
+    <p class="meta">
+<time datetime="2009-12-23T04:33:00" pubdate>三, 23 12, 2009</time>    </p>
+</header>
+
+  <div class="entry-content"><p><p>这两天在发布公司一个项目的测试系统，需要在3台服务器上发布3套应用，使用的环境有Websphere6.0和Websphere6.1，被折腾的快吐血了，总结一下碰到的问题，希望看到的朋友可以处理类似的问题时可以轻松一些。<br /> </p> <p>1、java.lang.NoClassDefFoundError或者java.lang.VerifyError，这个一般是打包的war中包含的jar与Websphere自带的jar冲突引起的，最常见的是和jdom有关的错误，主要出现在Websphere6.1之前的版本中，因为Websphere6.1之前的版本自带的jdom.jar据说是2001年的了（<span class="Apple-style-span" style="border-collapse:separate;color:#000000;font-family:simsun;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;font-size:medium;"><span class="Apple-style-span" style="color:#333333;font-family:'lucida grande','lucida sans unicode',helvetica,verdana,arial,sans-serif;font-size:13px;">The jdom.jar supplied in both WSAD 5.1 and RAD 6 as well as Websphere 5.1 and Websphere 6.x has the size of 106,416. It is the original jdom.jar dating back to 2001 release）</span></span>，来源在<a target="_blank" href="http://fixunix.com/websphere/217283-jdom-problems.html">这里</a>。</p> <p>解决的办法也很简单，一种是直接把{Websphere install path}/lib中有冲突的jar替换成项目中使用的jar；一种是在管理控制台中更改应用程序的类装载策略，将默认的“parent first”改成“parent last”重启Websphere服务即可。其实这两种方法都是为了让Websphere的类装载器首先找到我们需要使用的正确的java类文件，不过策略不同而已。这里就涉及到Websphere的类加载机制了，网上关于这个的文章很多，比如<a target="_blank" href="http://www.webspherechina.net/?540/viewspace-5802.html">这篇</a>。</p> <p>2、Websphere服务启动报错，进程起不来，查看系统的应用程序事件日志的话会看到报错的内容和pid文件有关。这个错误发生的概率相对小一些，主要是在Websphere服务进程异常终止或者是安装补丁包顺序不正确的时候会出现。</p> <p>第一种情况一般第二次启动就能起起来，而第二种情况的话基本就只能通过重新安装Websphere解决了。当然如果只是这两种情况的话也不至于太让人抓狂了，在Websphere的许可证过期的时候系统日志记录的错误也是这个，这样任你如何重装Websphere也是没法启动服务的。</p> <p>3、xml验证错误。这种错误主要出现在使用多个文件配置Spring-context时，需要在每个配置文件的root中声明使用的xml namespace。</p> <p>4、struts2在Websphere6.1下出现404错误。Websphere6.1.5之后都会出现，解决办法是在管理控制台中给应用服务器添加定制属性“com.ibm.ws.webcontainer.invokefilterscompatibility”，值为true，重启服务即可。</p> <p>关于Websphere的牢骚不想发太多，只引用一位原先在IBM工作的师兄的话，他说他们自己内部都不太乐意使用Websphere的，即使迫不得已用上了，打补丁的时候也是能少打一个版本就少打一个，因为谁也不知道版本更新之后会出什么样的新问题，包括Websphere的开发人员在内。</p> <p>另外前两天glassfish v3发布正式版了，模块化的JEE组件、对动态语言的支持、优秀的热部署能力等新特性老早就吸引了众多java开发者的注意力，我也不例外，试用了几下，和Websphere一比真是让人内牛满面，后面有空再写写我对glassfish应用的一些想法吧。<br /> </p> </p></div>
+  		</article>
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="./2009/12/20/Ready-to-add-a-pseudo-function-micro-Bo/">准备加个伪微博的功能</a>
+      </h1>
+    <p class="meta">
+<time datetime="2009-12-20T23:15:00" pubdate>日, 20 12, 2009</time>    </p>
+</header>
+
+  <div class="entry-content"><p><p>Deen同学说争取每天都更新一篇上来就好了，可是，对俺这样的懒人来说，码一篇300字的文章比说3w字都累，所以，就发扬一下老前辈们的精神，写点代码减轻自己的工作量吧。</p> <p>由于万恶的XXX，某推被河蟹夹掉了，可怜俺当时刚注册的账号，还没来得及发点东西体会体会微博的快感呢。</p> <p>有同学跳出来说，还It人士呢，可以翻墙解决的嘛。可是，俺这样的懒人，怎么会为了说句话多做那么多无用功呢，况且也木有人看我发牢骚的</p> <p>又有同学跳出来说，还有sina围脖的咩。嗯，这样是可以省点事情，可是，它要受XXX监督，随时会河蟹夹掉不良信息，这是俺不能接受的。</p> <p>所以，在啰唆了上面一大堆之后，俺只是想说，准备加个微博的功能，不太长的话就用微博发布了，这样就可以实现每天至少一更新的愿望了，哇咔咔</p></p></div>
+  		</article>
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="./2009/12/18/To-Play-Replace-a-Struts2/">把Play替换成Struts2了</a>
+      </h1>
+    <p class="meta">
+<time datetime="2009-12-18T03:23:00" pubdate>五, 18 12, 2009</time>    </p>
+</header>
+
+  <div class="entry-content"><p><p>花了两个晚上把Play!又换成了Struts2，对比一下第一次访问的启动速度，Struts2占了相当大的优势，最慢的也是Play!最快速度的2倍，那就果断先切换到Struts2吧。</p> <p>底层还是继续使用Siena，比起JPA和JDO的操作要方便很多，加上Memcache的作用，访问速度还是相当快的。从dashboard的日志来看，启动之后访问页面的速度Play!和Struts2倒是差不多，不过心理感觉上就是认为struts2快一点，哈哈。</p> <p>等struts2版的跑个一星期再看看日志情况吧，如果ok的话那就继续用Struts2了。速度顿卡的话写的人不爽，看的人那也是相当不爽啊,另外，某同学可以更欢的刷我页面抢沙发了。</p> <p>最后照旧贴图：</p> <p><img src="http://i2.sinaimg.cn/ty/cr/2009/1217/2312613193.jpg"/></p> <p class="photo_comment">师奶同学最近任意球很彪悍呐</p></p></div>
+  		</article>
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="./2009/12/16/Gae-using-the-Play-Framework-several-problems/">Gae上使用Play框架的几个问题</a>
+      </h1>
+    <p class="meta">
+<time datetime="2009-12-16T05:45:00" pubdate>三, 16 12, 2009</time>    </p>
+</header>
+
+  <div class="entry-content"><p><p>使用Play!在Gae搭建blog的念头起源于很早之前在JavaEye上看到的一篇<a href="http://www.javaeye.com/topic/421104">《Play!跑在GAE上，小试GAE》</a>，帖子里面讨论了很多关于Gae和Play!的特点以及实际操作，此外网友<a href="http://blog.csdn.net/laynepeng/archive/2009/07/17/4356591.aspx">laynepeng</a>对Play!在Gae上的使用总结了不少心得，这里就不再赘述他们的观点，只提一下自己碰到的问题。</p> <p>首先是选择JDO还是JPA的问题，由于自己平时一直使用Hibernate，所以一开始果断就选择了JPA，可是google的实现限制实在很多，用的很别扭。JDO的支持据说比JPA好一些，可是这会儿我也懒得再去折腾它了。后来在看Play!文档关于Gae支持的部分的时候发现了Siena这个东东，使用下来的感觉很爽，除了不支持事务之外做一个个人网站绰绰有余了，而且咱这小站点对数据也没那么高的要求，于是就和残缺不全的JPA说拜拜了。</p> <p>不过爽完之后就来后遗症了，用Siena的时候域模型对象继承了它的Model类，是个充血模型，查询出来的对象都是经过代理的Proxy，不能进行序列化操作，放不到google的memcache里面。不得已，只好在域模型里查询完之后把结果对象一个个的再转成VO放到memcache里面去，这下总算圆满了。</p> <p>网站发布上来跑了一星期，总是看到日志里面提示应用运行时CPU耗时过多，同时打印消息里面还有play初始化加载的信息。这样联想到第一次加载站点的时候速度巨慢的问题，猜测应该是gae在一段时间没有访问之后自动停止应用，等下次访问的时候再重新加载引起的。于是跑到Play!的group里猛翻一通，发现之前已经有人反映过这个问题了。不过大拿们说这个是Gae本身运行机制的问题，暂时也只能这样了，那就暂时先凑合着吧，看看后面的版本有没有解决的方法。</p> <p>到目前为止基本上就这两个问题耗费的时间比较长了，贴出来希望后面的兄弟们少走点弯路吧。</p></p></div>
+  		</article>
+  		<article>
+<header>
+      <h1 class="entry-title">
+        <a href="./2009/12/15/Music-Recommended-our-home-away/">音乐推荐-我们远去的家园</a>
+      </h1>
+    <p class="meta">
+<time datetime="2009-12-15T03:21:00" pubdate>二, 15 12, 2009</time>    </p>
+</header>
+
+  <div class="entry-content"><p><p>集韵堂出品的民乐，知道这个系列还是在<a href="http://www.mtyyw.com">麦田</a>看到林中老鬼推荐的第一张碟里的<a href="http://www.mtyyw.com/qingyinyue/pingyaoguyun/">《平遥古韵》</a>，调子刚一出来就把我给吸引住了，实在很适合心烦的时候听一听来静心。作为一个不坚定的版权支持者，我可耻的到verycd花了一个星期的时间把它们都给拽到了我的小硬盘。</p> <p><img src="http://img.xiami.com/images/album/img69/7169/3187101234856351.jpg"/></p> <p>专辑介绍请看<a href="http://www.xiami.com/album/318710/yan">这里</a>，还有<a href="http://www.xiami.com/album/318712/yan">这里</a></p> <p>想要下载的速度去verycd，地址在<a href="http://www.verycd.com/search/folders/%E6%88%91%E4%BB%AC%E8%BF%9C%E5%8E%BB%E7%9A%84%E5%AE%B6%E5%9B%AD">这里</a>，可自行根据需要选择Ape还是MP3格式的。当然，由于被封事件刚过去，可能verycd的速度比较慢，对音质要求不那么高的同学就下载<a href="http://www.xiami.com">虾米网</a>的demo吧（128k码率的）</p> <p>或者你比小跟班同学还要懒，那就直接开着浏览器听小跟班同学制作的虾米精选集吧：</p> <p><script src="http://www.xiami.com/widget/player-dynamic?uid=501561&id=671297&width=235&height=346&mainColor=0000ba&backColor=000000&type=collect&mode=js"></script></p></p></div>
+  		</article>
+<div class="pagination">
+    <a class="prev" href="./index7.html">&larr; Older</a>
+
+    <a class="next" href="./index5.html">Newer &rarr;</a>
+  <br />
+</div></div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./2014/03/28/replace-octopress-with-pelican/">再次折腾blog，从Octopress迁移到pelican</a>
+      </li>
+      <li class="post">
+          <a href="./2011/10/26/extending-ant-to-build-scala-android-app/">暂时还是用ANT打包SCALA写的ANDROID应用吧</a>
+      </li>
+      <li class="post">
+          <a href="./2011/08/02/System-Scripting-with-Scala/">Shell脚本中加点scala的料</a>
+      </li>
+      <li class="post">
+          <a href="./2010/12/09/Reserved-when-losing-has-become-a-habit/">【转载】当输球已成为一种习惯</a>
+      </li>
+      <li class="post">
+          <a href="./2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/">防火墙配置引起的outlook2010只能接收邮件不能发送邮件问题</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+      <li><a href="./category/android-dev.html"> Android-dev </a></li>
+      <li><a href="./category/application.html"> 软件应用 </a></li>
+      <li><a href="./category/football.html"> 足球 </a></li>
+      <li><a href="./category/images.html"> 影像生活 </a></li>
+      <li><a href="./category/java.html"> java </a></li>
+      <li><a href="./category/miscellanies.html"> 杂记 </a></li>
+      <li><a href="./category/mood.html"> 心情 </a></li>
+      <li><a href="./category/movies.html"> Movies </a></li>
+      <li><a href="./category/music.html"> Music </a></li>
+      <li><a href="./category/tips.html"> 奇技淫巧 </a></li>
+      <li><a href="./category/toolbox.html"> 懒人工具箱 </a></li>
+      <li><a href="./category/ubuntu.html"> Ubuntu </a></li>
+      <li><a href="./category/words.html"> 片言只语 </a></li>
+    </ul>
+  </section>
+ 
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="https://twitter.com/imsizon" target="_blank">Twitter</a></li>
+            <li><a href="https://plus.google.com/106603495406797618212" target="_blank">Google+</a></li>
+        </ul>
+    </section>
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2009&ndash;2014  萨内蒂的小跟班 &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11945266-2']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11945266-2');
+    ga('send', 'pageview');
+</script>
+</body>
+</html>

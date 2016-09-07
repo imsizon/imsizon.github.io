@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>萨内蒂的小跟班的Blog</title><link href="https://imsizon.com/" rel="alternate"></link><link href="https://imsizon.com/feeds/tips.atom.xml" rel="self"></link><id>https://imsizon.com/</id><updated>2011-08-02T09:43:44+08:00</updated><entry><title>Shell脚本中加点scala的料</title><link href="https://imsizon.com/2011/08/02/System-Scripting-with-Scala/" rel="alternate"></link><updated>2011-08-02T09:43:44+08:00</updated><author><name>萨内蒂的小跟班</name></author><id>tag:imsizon.com,2011-08-02:2011/08/02/System-Scripting-with-Scala/</id><summary type="html">&lt;p&gt;在bash脚本中直接写scala并且和普通脚本一样运行：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;#!/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;span class="nc"&gt;SCRIPT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$(cd &amp;quot;&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%/*}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot; 2&amp;gt;/dev/null; echo &amp;quot;&lt;/span&gt;&lt;span class="nc"&gt;$PWD&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;##*/}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt;
+&lt;span class="nc"&gt;DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;`dirname &amp;quot;${SCRIPT}&amp;quot;}`&lt;/span&gt;
+&lt;span class="n"&gt;exec&lt;/span&gt; &lt;span class="n"&gt;scala&lt;/span&gt; &lt;span class="n"&gt;$0&lt;/span&gt; &lt;span class="nc"&gt;$DIR&lt;/span&gt; &lt;span class="nc"&gt;$SCRIPT&lt;/span&gt;
+&lt;span class="o"&gt;::!&lt;/span&gt;&lt;span class="k"&gt;#&lt;/span&gt;
+
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.io.File&lt;/span&gt;
+
+&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;App&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="nc"&gt;Array&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;directory&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="n"&gt;script&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;File&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="n"&gt;getAbsolutePath&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Executing &amp;#39;%s&amp;#39; in directory &amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;script&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;魔法之处在哪里呢？看原文作者的解释：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting&lt;/p&gt;
+&lt;/blockquote&gt;</summary></entry></feed>

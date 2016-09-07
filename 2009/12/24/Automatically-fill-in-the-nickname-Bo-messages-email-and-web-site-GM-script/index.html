@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>萨内蒂的小跟班的Blog - 本博留言自动填写昵称、email和网址的GM脚本</title>
+  <meta name="author" content="萨内蒂的小跟班">
+  <meta name="google-site-verification" content="uaGTPOw73Z3eXJl5pFA2CFjhv7chVxHEeqWFVGQBSAE" />
+
+  <link href="https://imsizon.com/rss.xml" type="application/rss+xml" rel="alternate"
+        title="萨内蒂的小跟班的Blog RSS Feed" />
+
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link href="../../../../favicon.ico" rel="icon">
+  <link href="../../../../theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="../../../../">萨内蒂的小跟班的Blog</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="https://imsizon.com/rss.xml" rel="subscribe-rss">RSS</a></li>
+</ul>
+
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:imsizon.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/archives.html">Archives</a></li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">本博留言自动填写昵称、email和网址的GM脚本</h1>
+    <p class="meta">
+<time datetime="2009-12-24T06:29:00" pubdate>四, 24 12, 2009</time>    </p>
+</header>
+
+<div class="entry-content">
+  <p><p>每次回复留言的时候都要重复输入自己的昵称和邮箱，既浪费体力，又减少了键盘的寿命，那有木有什么方法可以减去这个步骤呢？</p> <p>鉴于目前访问本博的几位同学中使用Firefox的较多，所以爱偷懒的小跟班同学将目光瞄向了Greasemonkey（呃？这是啥？<a target="_blank" href="http://baike.baidu.com/view/1383641.html?wtp=tt">百度知道！</a>），写了一个极其简单的GM脚本。想和小跟班一样偷懒的同学请跟着以下步骤操作：</p> <p>1、安装Greasemonkey：打开Firefox，访问<a target="_blank" href="https://addons.mozilla.org/zh-CN/firefox/addon/748">Greasemonkey的插件发布页</a>，点击“添加到Firefox”，安装并且重启Firefox。重启之后在Firefox的菜单“工具”栏中应该已经出现“Greasemonkey”的选项了，如果开启了状态栏，在状态栏上也会出现一个猴子头的图标，这样就说明安装成功啦。当然，已经安装过的同学就跳过这一步吧。</p> <p>2、点击“工具”-“Greasemonkey”-“新建用户脚本”，或者在状态栏的猴子头上右键选择“新建用户脚本”，会出现一个新建用户脚本的对话框，在“名字”一栏随便输入一个值确认即可。此时会提示你选择一个编辑器，选择系统自带的记事本即可，或者你常用的其他文本编辑器。选择之后Firefox就会调用你选择的编辑器打开刚刚创建的脚本，内容大概如下：</p></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ==UserScript==</span>
+<span class="c1">// @name samplename</span>
+<span class="c1">// @namespace http://www.sina.com.cn/</span>
+<span class="c1">// @include http://www.sina.com.cn/*</span>
+<span class="c1">// ==/UserScript==</span>
+</pre></div>
+</td></tr></table>
+
+<p>3、将以下代码复制粘贴到编辑器中覆盖原先的内容，将其中的“yourname”、“your email”换成自己的昵称和email保存即可，如果有自己的网站的话将最后一行的“//”去掉，并且替换“you site url if you have one”为你自己的网站地址：</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="c1">// ==UserScript==</span>
+<span class="c1">// @name imsizon_auto_fill_username</span>
+<span class="c1">// @namespace http://www.imsizon.com/post/</span>
+<span class="c1">// @description imsizon.com留言时自动填写昵称、email和link</span>
+<span class="c1">// @include http://www.imsizon.com/post/*</span>
+<span class="c1">// ==/UserScript==</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">=</span><span class="s1">&#39;yourname&#39;</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">=</span><span class="s1">&#39;your email&#39;</span><span class="p">;</span>
+<span class="c1">//document.getElementById(&#39;url&#39;).value=&#39;you site url if you have one&#39;;</span>
+</pre></div>
+</td></tr></table>
+
+<p>4、打开小跟班的博客随便进入一篇文章，看看下面的评论栏是不是已经自动填上了你的昵称、email等信息？（什么？没有？检查一下“工具”-“Greasemonkey”中“启用”是否勾上了。还不行的话，请参照以上步骤再来一次吧）</p>
+
+<p><p>嗯，这下各位同学是不是可以将更多精力放到敲打留言上啦？</p> </p>
+</div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        萨内蒂的小跟班
+    </span>
+  </span>
+<time datetime="2009-12-24T06:29:00" pubdate>四, 24 12, 2009</time>  <span class="categories">
+    <a class='category' href="../../../../category/toolbox.html"> 懒人工具箱 </a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="../../../../2014/03/28/replace-octopress-with-pelican/">再次折腾blog，从Octopress迁移到pelican</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/10/26/extending-ant-to-build-scala-android-app/">暂时还是用ANT打包SCALA写的ANDROID应用吧</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/08/02/System-Scripting-with-Scala/">Shell脚本中加点scala的料</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/09/Reserved-when-losing-has-become-a-habit/">【转载】当输球已成为一种习惯</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/">防火墙配置引起的outlook2010只能接收邮件不能发送邮件问题</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+      <li><a href="../../../../category/android-dev.html"> Android-dev </a></li>
+      <li><a href="../../../../category/application.html"> 软件应用 </a></li>
+      <li><a href="../../../../category/football.html"> 足球 </a></li>
+      <li><a href="../../../../category/images.html"> 影像生活 </a></li>
+      <li><a href="../../../../category/java.html"> java </a></li>
+      <li><a href="../../../../category/miscellanies.html"> 杂记 </a></li>
+      <li><a href="../../../../category/mood.html"> 心情 </a></li>
+      <li><a href="../../../../category/movies.html"> Movies </a></li>
+      <li><a href="../../../../category/music.html"> Music </a></li>
+      <li><a href="../../../../category/tips.html"> 奇技淫巧 </a></li>
+      <li><a href="../../../../category/toolbox.html"> 懒人工具箱 </a></li>
+      <li><a href="../../../../category/ubuntu.html"> Ubuntu </a></li>
+      <li><a href="../../../../category/words.html"> 片言只语 </a></li>
+    </ul>
+  </section>
+ 
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="https://twitter.com/imsizon" target="_blank">Twitter</a></li>
+            <li><a href="https://plus.google.com/106603495406797618212" target="_blank">Google+</a></li>
+        </ul>
+    </section>
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2009&ndash;2014  萨内蒂的小跟班 &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="../../../../theme/js/modernizr-2.0.js"></script>
+  <script src="../../../../theme/js/ender.js"></script>
+  <script src="../../../../theme/js/octopress.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11945266-2']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11945266-2');
+    ga('send', 'pageview');
+</script>
+	<script type="text/javascript">
+	  var disqus_shortname = 'imsizon';
+          var disqus_identifier = 'http://imsizon.com/2009/12/24/Automatically-fill-in-the-nickname-Bo-messages-email-and-web-site-GM-script/';
+          var disqus_url = '../../../../2009/12/24/Automatically-fill-in-the-nickname-Bo-messages-email-and-web-site-GM-script/';
+          var disqus_title = '本博留言自动填写昵称、email和网址的GM脚本';
+	  (function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	   })();
+	</script>
+</body>
+</html>

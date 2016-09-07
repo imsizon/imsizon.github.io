@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>萨内蒂的小跟班的Blog - 自己在WebSphere中发布应用时碰到的问题总结</title>
+  <meta name="author" content="萨内蒂的小跟班">
+  <meta name="google-site-verification" content="uaGTPOw73Z3eXJl5pFA2CFjhv7chVxHEeqWFVGQBSAE" />
+
+  <link href="https://imsizon.com/rss.xml" type="application/rss+xml" rel="alternate"
+        title="萨内蒂的小跟班的Blog RSS Feed" />
+
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link href="../../../../favicon.ico" rel="icon">
+  <link href="../../../../theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="../../../../">萨内蒂的小跟班的Blog</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="https://imsizon.com/rss.xml" rel="subscribe-rss">RSS</a></li>
+</ul>
+
+<form action="https://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:imsizon.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+
+<ul class="main-navigation">
+    <li><a href="/">Blog</a></li>
+    <li><a href="/archives.html">Archives</a></li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">自己在WebSphere中发布应用时碰到的问题总结</h1>
+    <p class="meta">
+<time datetime="2009-12-23T04:33:00" pubdate>三, 23 12, 2009</time>    </p>
+</header>
+
+<div class="entry-content">
+  <p><p>这两天在发布公司一个项目的测试系统，需要在3台服务器上发布3套应用，使用的环境有Websphere6.0和Websphere6.1，被折腾的快吐血了，总结一下碰到的问题，希望看到的朋友可以处理类似的问题时可以轻松一些。<br /> </p> <p>1、java.lang.NoClassDefFoundError或者java.lang.VerifyError，这个一般是打包的war中包含的jar与Websphere自带的jar冲突引起的，最常见的是和jdom有关的错误，主要出现在Websphere6.1之前的版本中，因为Websphere6.1之前的版本自带的jdom.jar据说是2001年的了（<span class="Apple-style-span" style="border-collapse:separate;color:#000000;font-family:simsun;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:normal;orphans:2;text-indent:0px;text-transform:none;white-space:normal;widows:2;word-spacing:0px;font-size:medium;"><span class="Apple-style-span" style="color:#333333;font-family:'lucida grande','lucida sans unicode',helvetica,verdana,arial,sans-serif;font-size:13px;">The jdom.jar supplied in both WSAD 5.1 and RAD 6 as well as Websphere 5.1 and Websphere 6.x has the size of 106,416. It is the original jdom.jar dating back to 2001 release）</span></span>，来源在<a target="_blank" href="http://fixunix.com/websphere/217283-jdom-problems.html">这里</a>。</p> <p>解决的办法也很简单，一种是直接把{Websphere install path}/lib中有冲突的jar替换成项目中使用的jar；一种是在管理控制台中更改应用程序的类装载策略，将默认的“parent first”改成“parent last”重启Websphere服务即可。其实这两种方法都是为了让Websphere的类装载器首先找到我们需要使用的正确的java类文件，不过策略不同而已。这里就涉及到Websphere的类加载机制了，网上关于这个的文章很多，比如<a target="_blank" href="http://www.webspherechina.net/?540/viewspace-5802.html">这篇</a>。</p> <p>2、Websphere服务启动报错，进程起不来，查看系统的应用程序事件日志的话会看到报错的内容和pid文件有关。这个错误发生的概率相对小一些，主要是在Websphere服务进程异常终止或者是安装补丁包顺序不正确的时候会出现。</p> <p>第一种情况一般第二次启动就能起起来，而第二种情况的话基本就只能通过重新安装Websphere解决了。当然如果只是这两种情况的话也不至于太让人抓狂了，在Websphere的许可证过期的时候系统日志记录的错误也是这个，这样任你如何重装Websphere也是没法启动服务的。</p> <p>3、xml验证错误。这种错误主要出现在使用多个文件配置Spring-context时，需要在每个配置文件的root中声明使用的xml namespace。</p> <p>4、struts2在Websphere6.1下出现404错误。Websphere6.1.5之后都会出现，解决办法是在管理控制台中给应用服务器添加定制属性“com.ibm.ws.webcontainer.invokefilterscompatibility”，值为true，重启服务即可。</p> <p>关于Websphere的牢骚不想发太多，只引用一位原先在IBM工作的师兄的话，他说他们自己内部都不太乐意使用Websphere的，即使迫不得已用上了，打补丁的时候也是能少打一个版本就少打一个，因为谁也不知道版本更新之后会出什么样的新问题，包括Websphere的开发人员在内。</p> <p>另外前两天glassfish v3发布正式版了，模块化的JEE组件、对动态语言的支持、优秀的热部署能力等新特性老早就吸引了众多java开发者的注意力，我也不例外，试用了几下，和Websphere一比真是让人内牛满面，后面有空再写写我对glassfish应用的一些想法吧。<br /> </p> </p>
+</div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">
+        萨内蒂的小跟班
+    </span>
+  </span>
+<time datetime="2009-12-23T04:33:00" pubdate>三, 23 12, 2009</time>  <span class="categories">
+    <a class='category' href="../../../../category/java.html"> java </a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="../../../../2014/03/28/replace-octopress-with-pelican/">再次折腾blog，从Octopress迁移到pelican</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/10/26/extending-ant-to-build-scala-android-app/">暂时还是用ANT打包SCALA写的ANDROID应用吧</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2011/08/02/System-Scripting-with-Scala/">Shell脚本中加点scala的料</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/09/Reserved-when-losing-has-become-a-habit/">【转载】当输球已成为一种习惯</a>
+      </li>
+      <li class="post">
+          <a href="../../../../2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/">防火墙配置引起的outlook2010只能接收邮件不能发送邮件问题</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+      <li><a href="../../../../category/android-dev.html"> Android-dev </a></li>
+      <li><a href="../../../../category/application.html"> 软件应用 </a></li>
+      <li><a href="../../../../category/football.html"> 足球 </a></li>
+      <li><a href="../../../../category/images.html"> 影像生活 </a></li>
+      <li><a href="../../../../category/java.html"> java </a></li>
+      <li><a href="../../../../category/miscellanies.html"> 杂记 </a></li>
+      <li><a href="../../../../category/mood.html"> 心情 </a></li>
+      <li><a href="../../../../category/movies.html"> Movies </a></li>
+      <li><a href="../../../../category/music.html"> Music </a></li>
+      <li><a href="../../../../category/tips.html"> 奇技淫巧 </a></li>
+      <li><a href="../../../../category/toolbox.html"> 懒人工具箱 </a></li>
+      <li><a href="../../../../category/ubuntu.html"> Ubuntu </a></li>
+      <li><a href="../../../../category/words.html"> 片言只语 </a></li>
+    </ul>
+  </section>
+ 
+
+
+    <section>
+        <h1>Social</h1>
+        <ul>
+            <li><a href="https://twitter.com/imsizon" target="_blank">Twitter</a></li>
+            <li><a href="https://plus.google.com/106603495406797618212" target="_blank">Google+</a></li>
+        </ul>
+    </section>
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2009&ndash;2014  萨内蒂的小跟班 &mdash;
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+  <script src="../../../../theme/js/modernizr-2.0.js"></script>
+  <script src="../../../../theme/js/ender.js"></script>
+  <script src="../../../../theme/js/octopress.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11945266-2']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11945266-2');
+    ga('send', 'pageview');
+</script>
+	<script type="text/javascript">
+	  var disqus_shortname = 'imsizon';
+          var disqus_identifier = 'http://imsizon.com/2009/12/23/Their-application-in-WebSphere-published-summary-of-the-problems-encountered/';
+          var disqus_url = '../../../../2009/12/23/Their-application-in-WebSphere-published-summary-of-the-problems-encountered/';
+          var disqus_title = '自己在WebSphere中发布应用时碰到的问题总结';
+	  (function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	   })();
+	</script>
+</body>
+</html>

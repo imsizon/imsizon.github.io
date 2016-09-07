@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>萨内蒂的小跟班的Blog</title><link>https://imsizon.com/</link><description></description><atom:link href="https://imsizon.com/atom.xml" rel="self"></atom:link><lastBuildDate>Fri, 28 Mar 2014 18:10:32 +0800</lastBuildDate><item><title>再次折腾blog，从Octopress迁移到pelican</title><link>https://imsizon.com/2014/03/28/replace-octopress-with-pelican/</link><description>&lt;p&gt;发篇文章除除草……&lt;/p&gt;
+&lt;p&gt;虽说上篇文章已经是11年底更新的了，这期间博客背后的东西却已经换了2次，Octopress刚流行的时候，就果断把自己用flask写的版本给翻了过来，为了类目中文别名及多类目支持等需求，改了jekyll不少代码，再之后因为博客不怎么更新，这些代码也就年久失修了，现在再要跟上已经有点麻烦。&lt;/p&gt;
+&lt;p&gt;在简单搜了下替代方案后，从&lt;a href="http://blog.codylab.com/From-Octopress-To-Pelican/"&gt;这里（從 Octorpess 搬家到 Pelican
+）&lt;/a&gt;发现了&lt;a href="https://github.com/getpelican/pelican"&gt;pelican&lt;/a&gt;，借助&lt;a href="http://jakevdp.github.io/blog/2013/05/07/migrating-from-octopress-to-pelican/"&gt;Migrating from Octopress to Pelican&lt;/a&gt;这篇文章，花了一晚上，顺利把Octopress换成了pelican，主题还是使用的&lt;a href="https://github.com/duilio/pelican-octopress-theme"&gt;Octopress主题&lt;/a&gt;，不过这个主题默认的archive页面有点问题，就是不会按照pelican默认的settings&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;NEWEST_FIRST_ARCHIVES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;行为，将文档按照时间倒序排列，需要在templates/archives.html的这里&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="c"&gt;% for year, date_year in dates|groupby(&amp;#39;date.year&amp;#39;) %}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;和&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="c"&gt;% for month, articles in date_year|groupby(&amp;#39;date.month&amp;#39;) %}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里多加一个reverse的filter。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">萨内蒂的小跟班</dc:creator><pubDate>Fri, 28 Mar 2014 18:10:32 +0800</pubDate><guid>tag:imsizon.com,2014-03-28:2014/03/28/replace-octopress-with-pelican/</guid></item><item><title>暂时还是用ANT打包SCALA写的ANDROID应用吧</title><link>https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/</link><description>&lt;p&gt;android sdk tool r14发布之后sbt和gradle的android plugin都还没做相应更新，maven的android plugin只有3.0 alpha可以用，而且需要用maven3，这样和公司的maven环境冲突，于是只能退回来继续扩展sdk tool的ant脚本了。&lt;/p&gt;
+&lt;p&gt;最早开始用scala写android的时候就是通过这里&lt;a href="http://lamp.epfl.ch/~michelou/android/"&gt;Exploring Android&lt;/a&gt;的ant脚本编译打包应用的，后来想方便的集成&lt;a href="https://github.com/jbrechtel/robospecs"&gt;Robospecs&lt;/a&gt;(&lt;a href="http://pivotal.github.com/robolectric/"&gt;Robolectric&lt;/a&gt; with &lt;a href="http://specs2.org"&gt;Specs2&lt;/a&gt;)做单元测试，才把目光转向了sbt和gradle，可惜这俩对library project的支持不好，虽然sdk tool r14对这块做了不少优化，还是不能简单的把library project做成一个jar library(现在仅包含class文件，资源文件还是单独处理的)，roadmap里说r15会争取实现这个功能。&lt;/p&gt;
+&lt;p&gt;好吧，总不能因噎废食，还是扩展sdk tool的ant脚本最满足当前的需求，于是在&lt;a href="http://lamp.epfl.ch/~michelou/android/"&gt;Exploring Android&lt;/a&gt;的基础上改出了这个&lt;a href="https://github.com/imsizon/ant-android-scala"&gt;ant-android-scala&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">萨内蒂的小跟班</dc:creator><pubDate>Wed, 26 Oct 2011 12:43:44 +0800</pubDate><guid>tag:imsizon.com,2011-10-26:2011/10/26/extending-ant-to-build-scala-android-app/</guid></item><item><title>Shell脚本中加点scala的料</title><link>https://imsizon.com/2011/08/02/System-Scripting-with-Scala/</link><description>&lt;p&gt;在bash脚本中直接写scala并且和普通脚本一样运行：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;#!/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;span class="nc"&gt;SCRIPT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$(cd &amp;quot;&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;%/*}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot; 2&amp;gt;/dev/null; echo &amp;quot;&lt;/span&gt;&lt;span class="nc"&gt;$PWD&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="n"&gt;$&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;##*/}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt;
+&lt;span class="nc"&gt;DIR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;`dirname &amp;quot;${SCRIPT}&amp;quot;}`&lt;/span&gt;
+&lt;span class="n"&gt;exec&lt;/span&gt; &lt;span class="n"&gt;scala&lt;/span&gt; &lt;span class="n"&gt;$0&lt;/span&gt; &lt;span class="nc"&gt;$DIR&lt;/span&gt; &lt;span class="nc"&gt;$SCRIPT&lt;/span&gt;
+&lt;span class="o"&gt;::!&lt;/span&gt;&lt;span class="k"&gt;#&lt;/span&gt;
+
+&lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;java.io.File&lt;/span&gt;
+
+&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;App&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Array&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;String&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Unit&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="nc"&gt;Array&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;directory&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt;&lt;span class="n"&gt;script&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;File&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt;&lt;span class="o"&gt;).&lt;/span&gt;&lt;span class="n"&gt;getAbsolutePath&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Executing &amp;#39;%s&amp;#39; in directory &amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;script&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;directory&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+  &lt;span class="o"&gt;}&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;魔法之处在哪里呢？看原文作者的解释：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting&lt;/p&gt;
+&lt;/blockquote&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">萨内蒂的小跟班</dc:creator><pubDate>Tue, 02 Aug 2011 09:43:44 +0800</pubDate><guid>tag:imsizon.com,2011-08-02:2011/08/02/System-Scripting-with-Scala/</guid></item><item><title>【转载】当输球已成为一种习惯</title><link>https://imsizon.com/2010/12/09/Reserved-when-losing-has-become-a-habit/</link><description>&lt;p&gt;&lt;p&gt;发信人: Paigujing (排骨精), 信区: Inter&lt;/p&gt;
+&lt;p&gt;标 题: 当输球已成为一种习惯&lt;/p&gt;
+&lt;p&gt;发信站: 水木社区 (Wed Dec 8 10:17:31 2010), 站内&lt;/p&gt;
+&lt;p&gt;昨天晚上临睡前心理斗争了一下，半夜到底起不起来看球呢？&lt;/p&gt;
+&lt;p&gt;看的话，一帮老家伙带着小正太，估计会悲剧。可反过来想想，欧冠小组第一的诱惑实 在太大，对手又是积分垫底无欲无求的不来梅。贝胖子虽然蠢，可毕竟不是天朝国足的 教练天天事后念叨“爷没想到他们居然也没赢...”&lt;/p&gt;
+&lt;p&gt;不看的话，现在年纪大了，从十几年前甲A都几乎场场不落，到现在除了国米连西班牙俩 国企比赛都提不起兴趣来，每周也就这么点儿乐趣（现在也被贝胖子折磨的场场悲剧了 ）。&lt;/p&gt;
+&lt;p&gt;最后想想还是攒攒rp，前几场都看了非平即负，这次倒倒运气。早上看到耻辱的比分和 热刺华丽丽的平局，心里居然不怎么难受。&lt;/p&gt;
+&lt;p&gt;说什么战略性放弃都是扯淡。贝胖子怎么也算是见过大场面的人了，难道不知道“气势 ”这回事？当年的十七连胜实力是强大，但我觉得更主要的是舍我其谁的气势，而现在 的连战连败也仿佛成了一种习惯，连骂娘的脾气都没有了。&lt;/p&gt;
+&lt;p&gt;气势这东西，说起来很可怕。弱队打强队往往能凭着一口气摁着揍强队十几二十分钟， 半场球也不少见。我国当年2:0领先的情况下，2分钟被扳平最终被隔壁逆转，最主要也 是顶不住那一口气，自己先慌了。&lt;/p&gt;
+&lt;p&gt;今年过年期间，我国也是连战不利，输亚特兰大，平桑普，但我记住更多的是与天朝厚 黑程度不分伯仲的意大利裁判对我国的厚爱，以及魔力鸟不屈抗争的气势。而现在，跟 切沃莱切AV热刺拉齐奥的比赛，场场都是要啥啥没有，让人看不到一点儿希望。&lt;/p&gt;
+&lt;p&gt;控 TM屁球？贝胖子治下的高控球率，除了无意义的回传横穿还剩下些什么？上赛季客战 巴萨和拜仁，哪场我国控球率都是明显落下风，可仔细看比赛内容，对方又有几次威胁 到塞萨尔把守的大门？巴萨哪场好歹还有拉玛西亚影视学院的一次又一次的表演，幸好 欧冠裁判不像意甲国内裁判那么明目张胆，除了影帝黑莫塔的一次得逞外，其他都还算 正确。决赛对阵大拜仁，虽然我国控球率30.2%对69.8%，可场面上来看，是我看球十来 年最放心的一场比赛，拜仁才是华丽丽的毫无机会。&lt;/p&gt;
+&lt;p&gt;在贝胖子眼中，“最重要的永远是下一场比赛”，多标准的答案。只不过其他人是把下 一场定为更高的目标，贝胖子是输球的借口。就这厮，当初也敢喊出年薪1000万欧税后 ？&lt;/p&gt;
+&lt;p&gt;93/94 赛季末13名快降级的时候，我想着重头再来；97/98赛季被38黑了的时候，我觉得 我们还有罗纳尔多；00/01赛季0：6隔壁的当天，我继续穿着国米队服去操场踢球；01/ 02赛季的罗马奥林匹克溃败后，我哭完了想着我们还有库珀和维耶里；03/04赛季看比分 直播被隔壁2：3逆转，我想着“孙子你等着，早晚我们会赢回来”；04/05赛季的烟花， 我觉得我们还有未来十年组合；06/07赛季的斗殴，我想着“谁不上去揍他丫的就是孙子 ”；07/08赛季的百年庆典后被红军羞辱，我想着是实力确实不如人家；到了现在，对即 将到来的世俱杯我不抱任何希望，出现欧冠冠军半决赛被淘汰的状况，我也一点儿不觉 得奇怪。就现在这口心气儿，被棒子那种棱子揍一点儿也不奇怪。&lt;/p&gt;
+&lt;p&gt;到现在我只有两个想法：1. 用“死猪不怕开水烫”形容贝胖子真是恰如其分。2.&lt;span style="color:#e53333;font-size:32px;"&gt; 贝胖子下课！&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;--&lt;/p&gt;
+&lt;p&gt;※ 来源:·水木社区 http://newsmth.net·[FROM: 202.108.168.*]&lt;/p&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">萨内蒂的小跟班</dc:creator><pubDate>Thu, 09 Dec 2010 05:06:28 +0800</pubDate><guid>tag:imsizon.com,2010-12-09:2010/12/09/Reserved-when-losing-has-become-a-habit/</guid></item><item><title>防火墙配置引起的outlook2010只能接收邮件不能发送邮件问题</title><link>https://imsizon.com/2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/</link><description>&lt;p&gt;&lt;p&gt;入职阿里第二天，导师发送迎新人邮件之后，不断收到各位同事的问候，然后很happy的边一一回复边设置系统、安装软件。&lt;/p&gt;
+&lt;p&gt;过了半晌之后，还在奇怪先前发送的邮件怎么没有回应的时候，发现outlook的状态栏上出现了发送\接收邮件错误。心想难道和刚修改域用户密码有关？可是outlook配置也改了啊，而且能够接收邮件啊，用网页版发了一封测试邮件也是ok的。&lt;/p&gt;
+&lt;p&gt;于是尝试google outlook不能发送邮件的问题，发现大多数都是smtp端口配置错误引起的，我这里都是按照说明正常配置的啊。这时突然发现一个帖子最后一个不起眼的回复说可能和防火墙配置有关系，我擦，刚刚装了avast！杀软的，而且有提示在监测outlook邮件。赶紧把smtp监测禁用，一切又恢复了正常。&lt;/p&gt;
+&lt;p&gt;看来avast！是和outlook犯冲，之前自用的笔记本上avast！和foxmail共处一点问题都没有，记之记之。&lt;/p&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">萨内蒂的小跟班</dc:creator><pubDate>Sat, 04 Dec 2010 20:48:03 +0800</pubDate><guid>tag:imsizon.com,2010-12-04:2010/12/04/Caused-outlook2010-firewall-configuration-can-only-receive-e-mail-can-not-send-mail-problem/</guid></item></channel></rss>
