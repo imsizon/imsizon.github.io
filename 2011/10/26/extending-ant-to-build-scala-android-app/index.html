@@ -1,0 +1,131 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<link rel=prev href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/>
+<link rel=canonical href=https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/>
+<link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#da532c">
+<meta name=theme-color content="#ffffff">
+<title>
+暂时还是用ANT打包SCALA写的ANDROID应用吧 | 萨内蒂的小跟班
+</title>
+<meta name=title content="暂时还是用ANT打包SCALA写的ANDROID应用吧 | 萨内蒂的小跟班">
+<link rel=stylesheet href=/font/iconfont.css>
+<link rel=stylesheet href=/css/main.min.css>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="暂时还是用ANT打包SCALA写的ANDROID应用吧">
+<meta name=twitter:description content="android sdk tool r14发布之后sbt和gradle的android plugin都还没做相应更新，maven的android plugin只有3.0 alp">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"暂时还是用ANT打包SCALA写的ANDROID应用吧","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2011\/10\/26\/extending-ant-to-build-scala-android-app\/"},"genre":"posts","wordcount":398,"url":"https:\/\/imsizon.com\/2011\/10\/26\/extending-ant-to-build-scala-android-app\/","datePublished":"2011-10-26T12:43:44\u002b08:00","dateModified":"2011-10-26T12:43:44\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script>
+</head>
+<body>
+<div class=wrapper>
+<nav class=navbar>
+<div class=container>
+<div class="navbar-header header-logo">
+<a href=https://imsizon.com/>萨内蒂的小跟班</a>
+</div>
+<div class="menu navbar-right">
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;
+</div>
+</div>
+</nav>
+<nav class=navbar-mobile id=nav-mobile style=display:none>
+<div class=container>
+<div class=navbar-header>
+<div> <a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div>
+<div class=menu-toggle>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=mobile-menu>
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+</div>
+</div>
+</nav>
+<main class=main>
+<div class=container>
+<article class=post-warp>
+<header class=post-header>
+<h1 class=post-title>暂时还是用ANT打包SCALA写的ANDROID应用吧</h1>
+<div class=post-meta>
+<a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
+<span class=post-time>
+<time datetime="Wed, 2011-10-26">Wed, 2011-10-26</time>
+</span>
+<i class="iconfont icon-folder"></i>
+<span class=post-category>
+<a href=https://imsizon.com/categories/Android-dev/> Android-dev </a>
+</span>
+<i class="iconfont icon-timer"></i>
+1 min
+</div>
+</header>
+<div class=post-content>
+<p>android sdk tool r14发布之后sbt和gradle的android plugin都还没做相应更新，maven的android plugin只有3.0 alpha可以用，而且需要用maven3，这样和公司的maven环境冲突，于是只能退回来继续扩展sdk tool的ant脚本了。</p>
+<p>最早开始用scala写android的时候就是通过这里 <a href=http://lamp.epfl.ch/~michelou/android/>Exploring Android</a> 的ant脚本编译打包应用的，后来想方便的集成<a href=https://github.com/jbrechtel/robospecs>Robospecs</a> (<a href=http://pivotal.github.com/robolectric/>Robolectric</a> with <a href=http://specs2.org>Specs2</a>) 做单元测试，才把目光转向了sbt和gradle，可惜这俩对library project的支持不好，虽然sdk tool r14对这块做了不少优化，还是不能简单的把library project做成一个jar library(现在仅包含class文件，资源文件还是单独处理的)，roadmap里说r15会争取实现这个功能。</p>
+<p>好吧，总不能因噎废食，还是扩展sdk tool的ant脚本最满足当前的需求，于是在 <a href=http://lamp.epfl.ch/~michelou/android/>Exploring Android</a> 的基础上改出了这个 <a href=https://github.com/imsizon/ant-android-scala>ant-android-scala</a></p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span>:</span>
+<span>萨内蒂的小跟班 </span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>398</span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>
+<a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2011%2f10%2f26%2fextending-ant-to-build-scala-android-app%2f&text=%e6%9a%82%e6%97%b6%e8%bf%98%e6%98%af%e7%94%a8ANT%e6%89%93%e5%8c%85SCALA%e5%86%99%e7%9a%84ANDROID%e5%ba%94%e7%94%a8%e5%90%a7&via=JZ4EverFan" target=_blank title="Share on Twitter">
+<i class="iconfont icon-twitter"></i>
+</a>
+</span>
+</p>
+<p class=copyright-item>
+Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a>
+</p>
+</div>
+<div class=post-tags>
+<section>
+<a href=javascript:window.history.back();></a></span> ·
+<span><a href=https://imsizon.com/></a></span>
+</section>
+</div>
+<div class=post-nav>
+<a href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/ class=prev rel=prev title=Shell脚本中加点scala的料><i class="iconfont icon-dajiantou"></i>&nbsp;Shell脚本中加点scala的料</a>
+</div>
+<div class=post-comment>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='imsizon',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</div>
+</main>
+<footer class=footer>
+<div class=copyright>
+&copy;
+<span itemprop=copyrightYear>2009 - 2022</span>
+<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> | </span>
+<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span>
+</div>
+</footer>
+<script src=/js/vendor_no_gallery.min.js async></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-11945266-2','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<link rel=prev href=https://imsizon.com/2009/12/07/Gae-blog-beta-releases/>
+<link rel=next href=https://imsizon.com/2010/01/26/More-than-life-endless-torment/>
+<link rel=canonical href=https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/>
+<link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#da532c">
+<meta name=theme-color content="#ffffff">
+<title>
+Gae上使用Play框架的几个问题 | 萨内蒂的小跟班
+</title>
+<meta name=title content="Gae上使用Play框架的几个问题 | 萨内蒂的小跟班">
+<link rel=stylesheet href=/font/iconfont.css>
+<link rel=stylesheet href=/css/main.min.css>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Gae上使用Play框架的几个问题">
+<meta name=twitter:description content="使用Play!在Gae搭建blog的念头起源于很早之前在JavaEye上看到的一篇《Play!跑在GAE上，小试GAE》，帖子里面讨论了很多">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Gae上使用Play框架的几个问题","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2009\/12\/16\/Gae-using-the-Play-Framework-several-problems\/"},"genre":"posts","wordcount":774,"url":"https:\/\/imsizon.com\/2009\/12\/16\/Gae-using-the-Play-Framework-several-problems\/","datePublished":"2009-12-16T05:45:00\u002b08:00","dateModified":"2009-12-16T05:45:00\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script>
+</head>
+<body>
+<div class=wrapper>
+<nav class=navbar>
+<div class=container>
+<div class="navbar-header header-logo">
+<a href=https://imsizon.com/>萨内蒂的小跟班</a>
+</div>
+<div class="menu navbar-right">
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;
+</div>
+</div>
+</nav>
+<nav class=navbar-mobile id=nav-mobile style=display:none>
+<div class=container>
+<div class=navbar-header>
+<div> <a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div>
+<div class=menu-toggle>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=mobile-menu>
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+</div>
+</div>
+</nav>
+<main class=main>
+<div class=container>
+<article class=post-warp>
+<header class=post-header>
+<h1 class=post-title>Gae上使用Play框架的几个问题</h1>
+<div class=post-meta>
+<a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
+<span class=post-time>
+<time datetime="Wed, 2009-12-16">Wed, 2009-12-16</time>
+</span>
+<i class="iconfont icon-folder"></i>
+<span class=post-category>
+<a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/> 杂记 </a>
+</span>
+<i class="iconfont icon-timer"></i>
+2 min
+</div>
+</header>
+<div class=post-content>
+<p>使用Play!在Gae搭建blog的念头起源于很早之前在JavaEye上看到的一篇<a href=http://www.iteye.com/topic/421104>《Play!跑在GAE上，小试GAE》</a>，帖子里面讨论了很多关于Gae和Play!的特点以及实际操作，此外网友<a href=http://blog.csdn.net/laynepeng>laynepeng</a>对Play!在Gae上的使用总结了不少心得，这里就不再赘述他们的观点，只提一下自己碰到的问题。</p>
+<p>首先是选择JDO还是JPA的问题，由于自己平时一直使用Hibernate，所以一开始果断就选择了JPA，可是google的实现限制实在很多，用的很别扭。JDO的支持据说比JPA好一些，可是这会儿我也懒得再去折腾它了。后来在看Play!文档关于Gae支持的部分的时候发现了Siena这个东东，使用下来的感觉很爽，除了不支持事务之外做一个个人网站绰绰有余了，而且咱这小站点对数据也没那么高的要求，于是就和残缺不全的JPA说拜拜了。
+不过爽完之后就来后遗症了，用Siena的时候域模型对象继承了它的Model类，是个充血模型，查询出来的对象都是经过代理的Proxy，不能进行序列化操作，放不到google的memcache里面。不得已，只好在域模型里查询完之后把结果对象一个个的再转成VO放到memcache里面去，这下总算圆满了。</p>
+<p>网站发布上来跑了一星期，总是看到日志里面提示应用运行时CPU耗时过多，同时打印消息里面还有play初始化加载的信息。这样联想到第一次加载站点的时候速度巨慢的问题，猜测应该是gae在一段时间没有访问之后自动停止应用，等下次访问的时候再重新加载引起的。于是跑到Play!的group里猛翻一通，发现之前已经有人反映过这个问题了。不过大拿们说这个是Gae本身运行机制的问题，暂时也只能这样了，那就暂时先凑合着吧，看看后面的版本有没有解决的方法。</p>
+<p>到目前为止基本上就这两个问题耗费的时间比较长了，贴出来希望后面的兄弟们少走点弯路吧。</p>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span>:</span>
+<span>萨内蒂的小跟班 </span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>774</span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>
+<a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2009%2f12%2f16%2fGae-using-the-Play-Framework-several-problems%2f&text=Gae%e4%b8%8a%e4%bd%bf%e7%94%a8Play%e6%a1%86%e6%9e%b6%e7%9a%84%e5%87%a0%e4%b8%aa%e9%97%ae%e9%a2%98&via=JZ4EverFan" target=_blank title="Share on Twitter">
+<i class="iconfont icon-twitter"></i>
+</a>
+</span>
+</p>
+<p class=copyright-item>
+Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a>
+</p>
+</div>
+<div class=post-tags>
+<section>
+<a href=javascript:window.history.back();></a></span> ·
+<span><a href=https://imsizon.com/></a></span>
+</section>
+</div>
+<div class=post-nav>
+<a href=https://imsizon.com/2009/12/07/Gae-blog-beta-releases/ class=prev rel=prev title=Gae博客beta发布><i class="iconfont icon-dajiantou"></i>&nbsp;Gae博客beta发布</a>
+<a href=https://imsizon.com/2010/01/26/More-than-life-endless-torment/ class=next rel=next title=生命不止，折腾不息>生命不止，折腾不息&nbsp;<i class="iconfont icon-xiaojiantou"></i></a>
+</div>
+<div class=post-comment>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='imsizon',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</div>
+</main>
+<footer class=footer>
+<div class=copyright>
+&copy;
+<span itemprop=copyrightYear>2009 - 2022</span>
+<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> | </span>
+<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span>
+</div>
+</footer>
+<script src=/js/vendor_no_gallery.min.js async></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-11945266-2','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</div>
+</body>
+</html>

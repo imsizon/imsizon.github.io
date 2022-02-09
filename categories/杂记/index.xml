@@ -1,0 +1,36 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>杂记 on 萨内蒂的小跟班</title><link>https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/</link><description>Recent content in 杂记 on 萨内蒂的小跟班</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 02 Aug 2011 09:43:44 +0800</lastBuildDate><atom:link href="https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/" rel="self" type="application/rss+xml"/><item><title>Shell脚本中加点scala的料</title><link>https://imsizon.com/2011/08/02/System-Scripting-with-Scala/</link><pubDate>Tue, 02 Aug 2011 09:43:44 +0800</pubDate><guid>https://imsizon.com/2011/08/02/System-Scripting-with-Scala/</guid><description>&lt;p>在bash脚本中直接写scala并且和普通脚本一样运行：&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-sca" data-lang="sca">#!scala
+#!/bin/sh
+SCRIPT=&amp;quot;$(cd &amp;quot;${0%/*}&amp;quot; 2&amp;gt;/dev/null; echo &amp;quot;$PWD&amp;quot;/&amp;quot;${0##*/}&amp;quot;)&amp;quot;
+DIR=`dirname &amp;quot;${SCRIPT}&amp;quot;}`
+exec scala $0 $DIR $SCRIPT
+::!#
+import java.io.File
+object App {
+def main(args: Array[String]): Unit = {
+val Array(directory,script) = args.map(new File(_).getAbsolutePath)
+println(&amp;quot;Executing '%s' in directory '%s'&amp;quot;.format(script, directory))
+}
+}
+&lt;/code>&lt;/pre>&lt;p>魔法之处在哪里呢？看原文作者的解释：&lt;/p>
+&lt;blockquote>
+&lt;p>Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting&lt;/p>
+&lt;/blockquote></description></item><item><title>从java折腾到python</title><link>https://imsizon.com/2010/02/26/Toss-to-python-from-java/</link><pubDate>Fri, 26 Feb 2010 04:21:38 +0800</pubDate><guid>https://imsizon.com/2010/02/26/Toss-to-python-from-java/</guid><description>&lt;p>利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到了现在的1s左右，cpu时间消耗自然是大幅降低，另外gae python对静态文件配置的支持要比gae java好不少，可以指定文件的过期时间，可以进一步降低对服务器的资源消耗提高页面二次访问速度。这下估计每天访问量上到5000+（2010-03-01update：根据dashboard的资源消耗统计数据计算看可以支持50000+request/day，平均每个页面5个request的话也可以支撑10000+页面访问了），应该都不需要额外购买google的服务器配置了，购买虚拟主机的计划就往后搁置一下吧，估计上半年也没太多时间打理。&lt;/p>
+&lt;p>凌晨的比赛国米终于坚挺了一把，2：1把车仔拿下，真是让内拉祖里们内牛满面呐，希望下回合客场能继续保持本场的防守水准和反击效率。曾哥的禁区内扣球过人射门简直是如臻化境，屡试不爽了现在，看来以后得以信曾哥为主了。&lt;/p></description></item><item><title>生命不止，折腾不息</title><link>https://imsizon.com/2010/01/26/More-than-life-endless-torment/</link><pubDate>Tue, 26 Jan 2010 06:20:00 +0800</pubDate><guid>https://imsizon.com/2010/01/26/More-than-life-endless-torment/</guid><description>&lt;p>每次看着系统日志里面博客的启动时间长达10s以上我就有股冲动整个完全由自己控制的虚拟主机，8过转了一圈也没发现什么便宜的支持java的方案，无奈之下就想拖鞋一下用个PHP的算了，好用的话顺带当个相册使了，看着&lt;a href="http://typecho.org">typecho&lt;/a>就挺不错的，顺便也能把在Godaddy买域名免费赠送的10G虚拟主机空间给用上了。&lt;/p>
+&lt;p>于是屁颠屁颠的开主机，设mysql，安装typecho，把一切都弄好之后，才悲剧的发现分配给我的ip已经被和谐掉了，不翻墙无法访问（奇怪的是用公司电信通的网络完全木有问题），怒啊~~~~~&lt;/p>
+&lt;p>贼心不死的把虚拟主机删了再建刷新ip，如是几把分配的ip依然在墙外，好吧，只能望墙兴叹了，8是每个访问我博客的人都会翻墙的。&lt;/p>
+&lt;p>转过头来继续打google app engine的主意，看起来python版本的冷启动速度貌似还可以，那就用Django再造一个轮子吧，顺带深入复习一下python的使用，嗯哼，这个基本上就是接下来一段时间业余生活的主要消遣了。&lt;/p>
+&lt;p>最后怒赞一把球队，9人应战的情况下完爆隔壁，特别点名表扬圣塞、曾哥、潘德夫、萨队、麦孔，以下是贴图时间：&lt;/p>
+&lt;p>&lt;img src="https://i1.sinaimg.cn/ty/cr/2010/0125/3570656238.jpg" alt="潘德夫助攻曾哥首开纪录">&lt;/p>
+&lt;p>&lt;img src="https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807484F44DT20100125054157.jpg" alt="潘德夫任意球破门">&lt;/p>
+&lt;p>&lt;img src="https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807506F44DT20100125063257.jpg" alt="圣塞扑掉小罗点球">&lt;/p>
+&lt;p>&lt;img src="https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807445F44DT20100125051050.jpg" alt="萨队的防守依旧生猛">&lt;/p>
+&lt;p>&lt;img src="https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807510F44DT20100125063755.JPG" alt="可爱的大马，戴面具讽刺家兔">&lt;/p></description></item><item><title>Gae上使用Play框架的几个问题</title><link>https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/</link><pubDate>Wed, 16 Dec 2009 05:45:00 +0800</pubDate><guid>https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/</guid><description>&lt;p>使用Play!在Gae搭建blog的念头起源于很早之前在JavaEye上看到的一篇&lt;a href="http://www.iteye.com/topic/421104">《Play!跑在GAE上，小试GAE》&lt;/a>，帖子里面讨论了很多关于Gae和Play!的特点以及实际操作，此外网友&lt;a href="http://blog.csdn.net/laynepeng">laynepeng&lt;/a>对Play!在Gae上的使用总结了不少心得，这里就不再赘述他们的观点，只提一下自己碰到的问题。&lt;/p>
+&lt;p>首先是选择JDO还是JPA的问题，由于自己平时一直使用Hibernate，所以一开始果断就选择了JPA，可是google的实现限制实在很多，用的很别扭。JDO的支持据说比JPA好一些，可是这会儿我也懒得再去折腾它了。后来在看Play!文档关于Gae支持的部分的时候发现了Siena这个东东，使用下来的感觉很爽，除了不支持事务之外做一个个人网站绰绰有余了，而且咱这小站点对数据也没那么高的要求，于是就和残缺不全的JPA说拜拜了。
+不过爽完之后就来后遗症了，用Siena的时候域模型对象继承了它的Model类，是个充血模型，查询出来的对象都是经过代理的Proxy，不能进行序列化操作，放不到google的memcache里面。不得已，只好在域模型里查询完之后把结果对象一个个的再转成VO放到memcache里面去，这下总算圆满了。&lt;/p>
+&lt;p>网站发布上来跑了一星期，总是看到日志里面提示应用运行时CPU耗时过多，同时打印消息里面还有play初始化加载的信息。这样联想到第一次加载站点的时候速度巨慢的问题，猜测应该是gae在一段时间没有访问之后自动停止应用，等下次访问的时候再重新加载引起的。于是跑到Play!的group里猛翻一通，发现之前已经有人反映过这个问题了。不过大拿们说这个是Gae本身运行机制的问题，暂时也只能这样了，那就暂时先凑合着吧，看看后面的版本有没有解决的方法。&lt;/p>
+&lt;p>到目前为止基本上就这两个问题耗费的时间比较长了，贴出来希望后面的兄弟们少走点弯路吧。&lt;/p></description></item><item><title>Gae博客beta发布</title><link>https://imsizon.com/2009/12/07/Gae-blog-beta-releases/</link><pubDate>Mon, 07 Dec 2009 07:58:00 +0800</pubDate><guid>https://imsizon.com/2009/12/07/Gae-blog-beta-releases/</guid><description>&lt;p>忙活了一个周末，我的Gae博客终于能用了，在此感谢Play!框架作者及其团队的工作，大大简化了使用Gae for Java的复杂性。&lt;/p>
+&lt;p>由于之前很少做前端的页面设计，这次在页面设计上花了很长的时间才拿出现在这个自己看着还觉得满意的方案，简洁，实现起来也简单点，哈哈。&lt;/p>
+&lt;p>不过目前后台管理页面还做得比较粗糙，是短期内改进的主要目标了。另外准备实现MetaWeblog的api，这样就可以通过google docs来发布博客了。还有一些其他的想法就不在一一列举了，后面慢慢更新，以后就在此安营扎寨了，同志们有空多多来看看吧。&lt;/p>
+&lt;p>最后送上队长靓照一张：
+&lt;img src="https://imsizon.com/images/gae-blog-zanetti.jpg" alt="小将">&lt;/p></description></item></channel></rss>

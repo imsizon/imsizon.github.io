@@ -1,0 +1,150 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="chrome=1">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<link rel=prev href=https://imsizon.com/2010/02/26/Toss-to-python-from-java/>
+<link rel=next href=https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/>
+<link rel=canonical href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/>
+<link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/site.webmanifest>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<meta name=msapplication-TileColor content="#da532c">
+<meta name=theme-color content="#ffffff">
+<title>
+Shell脚本中加点scala的料 | 萨内蒂的小跟班
+</title>
+<meta name=title content="Shell脚本中加点scala的料 | 萨内蒂的小跟班">
+<link rel=stylesheet href=/font/iconfont.css>
+<link rel=stylesheet href=/css/main.min.css>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Shell脚本中加点scala的料">
+<meta name=twitter:description content="在bash脚本中直接写scala并且和普通脚本一样运行： #!scala #!/bin/sh SCRIPT=&#34;$(cd &#34;${0%/*}&#34; 2>/dev/null; echo &#34;$PWD&#34;/&#34;${0##*/}&#34;)&#34; DIR=`dirname &#34;${SCRIPT}&#34;}` exec scala $0 $DIR $SCRIPT ::!# import java.io.File object App { def main(args: Array[String]): Unit = { val Array(directory,script) = args.map(new File(_).getAbsolutePath) println(&#34;Executing '%s' in directory '%s'&#34;.format(script, directory)) } } 魔法之">
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Shell脚本中加点scala的料","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2011\/08\/02\/System-Scripting-with-Scala\/"},"genre":"posts","wordcount":125,"url":"https:\/\/imsizon.com\/2011\/08\/02\/System-Scripting-with-Scala\/","datePublished":"2011-08-02T09:43:44\u002b08:00","dateModified":"2011-08-02T09:43:44\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script>
+</head>
+<body>
+<div class=wrapper>
+<nav class=navbar>
+<div class=container>
+<div class="navbar-header header-logo">
+<a href=https://imsizon.com/>萨内蒂的小跟班</a>
+</div>
+<div class="menu navbar-right">
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;
+</div>
+</div>
+</nav>
+<nav class=navbar-mobile id=nav-mobile style=display:none>
+<div class=container>
+<div class=navbar-header>
+<div> <a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div>
+<div class=menu-toggle>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=mobile-menu>
+<a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a>
+</div>
+</div>
+</nav>
+<main class=main>
+<div class=container>
+<article class=post-warp>
+<header class=post-header>
+<h1 class=post-title>Shell脚本中加点scala的料</h1>
+<div class=post-meta>
+<a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
+<span class=post-time>
+<time datetime="Tue, 2011-08-02">Tue, 2011-08-02</time>
+</span>
+<i class="iconfont icon-folder"></i>
+<span class=post-category>
+<a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/> 杂记 </a>
+</span>
+<i class="iconfont icon-timer"></i>
+1 min
+</div>
+</header>
+<div class=post-content>
+<p>在bash脚本中直接写scala并且和普通脚本一样运行：</p>
+<pre tabindex=0><code class=language-sca data-lang=sca>#!scala
+#!/bin/sh
+SCRIPT=&quot;$(cd &quot;${0%/*}&quot; 2&gt;/dev/null; echo &quot;$PWD&quot;/&quot;${0##*/}&quot;)&quot;
+DIR=`dirname &quot;${SCRIPT}&quot;}`
+exec scala $0 $DIR $SCRIPT
+::!#
+
+import java.io.File
+
+object App {
+  def main(args: Array[String]): Unit = {
+    val Array(directory,script) = args.map(new File(_).getAbsolutePath)
+    println(&quot;Executing '%s' in directory '%s'&quot;.format(script, directory))
+  }
+}
+</code></pre><p>魔法之处在哪里呢？看原文作者的解释：</p>
+<blockquote>
+<p>Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting</p>
+</blockquote>
+</div>
+<div class=post-copyright>
+<p class=copyright-item>
+<span>:</span>
+<span>萨内蒂的小跟班 </span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>125</span>
+</p>
+<p class=copyright-item>
+<span>:</span>
+<span>
+<a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2011%2f08%2f02%2fSystem-Scripting-with-Scala%2f&text=Shell%e8%84%9a%e6%9c%ac%e4%b8%ad%e5%8a%a0%e7%82%b9scala%e7%9a%84%e6%96%99&via=JZ4EverFan" target=_blank title="Share on Twitter">
+<i class="iconfont icon-twitter"></i>
+</a>
+</span>
+</p>
+<p class=copyright-item>
+Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a>
+</p>
+</div>
+<div class=post-tags>
+<section>
+<a href=javascript:window.history.back();></a></span> ·
+<span><a href=https://imsizon.com/></a></span>
+</section>
+</div>
+<div class=post-nav>
+<a href=https://imsizon.com/2010/02/26/Toss-to-python-from-java/ class=prev rel=prev title=从java折腾到python><i class="iconfont icon-dajiantou"></i>&nbsp;从java折腾到python</a>
+<a href=https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/ class=next rel=next title=暂时还是用ANT打包SCALA写的ANDROID应用吧>暂时还是用ANT打包SCALA写的ANDROID应用吧&nbsp;<i class="iconfont icon-xiaojiantou"></i></a>
+</div>
+<div class=post-comment>
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='imsizon',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</article>
+</div>
+</main>
+<footer class=footer>
+<div class=copyright>
+&copy;
+<span itemprop=copyrightYear>2009 - 2022</span>
+<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> | </span>
+<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span>
+</div>
+</footer>
+<script src=/js/vendor_no_gallery.min.js async></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-11945266-2','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</div>
+</body>
+</html>
