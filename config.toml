@@ -1,0 +1,63 @@
+baseURL = 'https://imsizon.com/'
+languageCode = 'zh-cn'
+defaultContentLanguage = "zh-cn"
+title = '萨内蒂的小跟班'
+theme = 'KeepIt'
+hasCJKLanguage = true
+timeZone = "Asia/Shanghai"
+disablePathToLower = true
+
+paginate = 5
+enableEmoji = true
+enableRobotsTXT = true
+googleAnalytics = "UA-11945266-2"
+disqusShortname = "imsizon"
+
+[sitemap]
+    changefreq = "monthly"
+    filename = "sitemap.xml"
+    priority = 0.5
+
+[blackfriday]
+    hrefTargetBlank = true
+    nofollowLinks = true
+    noreferrerLinks = true
+
+[Permalinks]
+    posts = "/:year/:month/:day/:slug/"
+
+[menu]
+    [[menu.main]]
+        name = "Blog"
+        url = "/posts/"
+        weight = 1
+
+    [[menu.main]]
+        name = "Categories"
+        url = "/categories/"
+        weight = 3
+
+[params]
+    since = 2009
+    author = "萨内蒂的小跟班"
+    subtitle = "My personal site"
+    home_mode = "" # post or other
+    dateFormatToUse = "Mon, 2006-01-02"
+    avatar = "/images/avatar.jpg?v=1"
+    socialShare = true
+
+    license= 'Released under <a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+[params.social]
+    GitHub  = "imsizon"
+    Twitter = "JZ4EverFan"
+    Email   = "xich@imsizon.com"
+
+[params.share]
+    Twitter = true
+
+# Used only for Seo schema
+copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
+
+[author]
+  name = "萨内蒂的小跟班"
