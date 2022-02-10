@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on 萨内蒂的小跟班</title><link>https://imsizon.com/posts/</link><description>Recent content in Posts on 萨内蒂的小跟班</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 26 Oct 2011 12:43:44 +0800</lastBuildDate><atom:link href="https://imsizon.com/posts/" rel="self" type="application/rss+xml"/><item><title>暂时还是用ANT打包SCALA写的ANDROID应用吧</title><link>https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/</link><pubDate>Wed, 26 Oct 2011 12:43:44 +0800</pubDate><guid>https://imsizon.com/2011/10/26/extending-ant-to-build-scala-android-app/</guid><description>&lt;p>android sdk tool r14发布之后sbt和gradle的android plugin都还没做相应更新，maven的android plugin只有3.0 alpha可以用，而且需要用maven3，这样和公司的maven环境冲突，于是只能退回来继续扩展sdk tool的ant脚本了。&lt;/p>
 &lt;p>最早开始用scala写android的时候就是通过这里 &lt;a href="http://lamp.epfl.ch/~michelou/android/">Exploring Android&lt;/a> 的ant脚本编译打包应用的，后来想方便的集成&lt;a href="https://github.com/jbrechtel/robospecs">Robospecs&lt;/a> (&lt;a href="http://pivotal.github.com/robolectric/">Robolectric&lt;/a> with &lt;a href="http://specs2.org">Specs2&lt;/a>) 做单元测试，才把目光转向了sbt和gradle，可惜这俩对library project的支持不好，虽然sdk tool r14对这块做了不少优化，还是不能简单的把library project做成一个jar library(现在仅包含class文件，资源文件还是单独处理的)，roadmap里说r15会争取实现这个功能。&lt;/p>
 &lt;p>好吧，总不能因噎废食，还是扩展sdk tool的ant脚本最满足当前的需求，于是在 &lt;a href="http://lamp.epfl.ch/~michelou/android/">Exploring Android&lt;/a> 的基础上改出了这个 &lt;a href="https://github.com/imsizon/ant-android-scala">ant-android-scala&lt;/a>&lt;/p></description></item><item><title>Shell脚本中加点scala的料</title><link>https://imsizon.com/2011/08/02/System-Scripting-with-Scala/</link><pubDate>Tue, 02 Aug 2011 09:43:44 +0800</pubDate><guid>https://imsizon.com/2011/08/02/System-Scripting-with-Scala/</guid><description>&lt;p>在bash脚本中直接写scala并且和普通脚本一样运行：&lt;/p>
-&lt;pre tabindex="0">&lt;code class="language-sca" data-lang="sca">#!scala
-#!/bin/sh
-SCRIPT=&amp;quot;$(cd &amp;quot;${0%/*}&amp;quot; 2&amp;gt;/dev/null; echo &amp;quot;$PWD&amp;quot;/&amp;quot;${0##*/}&amp;quot;)&amp;quot;
-DIR=`dirname &amp;quot;${SCRIPT}&amp;quot;}`
-exec scala $0 $DIR $SCRIPT
-::!#
-import java.io.File
-object App {
-def main(args: Array[String]): Unit = {
-val Array(directory,script) = args.map(new File(_).getAbsolutePath)
-println(&amp;quot;Executing '%s' in directory '%s'&amp;quot;.format(script, directory))
-}
-}
-&lt;/code>&lt;/pre>&lt;p>魔法之处在哪里呢？看原文作者的解释：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-scala" data-lang="scala">&lt;span style="color:#f92672">#!&lt;/span>scala
+&lt;span style="color:#f92672">#!/&lt;/span>bin&lt;span style="color:#f92672">/&lt;/span>sh
+&lt;span style="color:#a6e22e">SCRIPT&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;$(cd &amp;#34;&lt;/span>$&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>&lt;span style="color:#f92672">%/*}&lt;/span>&lt;span style="color:#e6db74">&amp;#34; 2&amp;gt;/dev/null; echo &amp;#34;&lt;/span>&lt;span style="color:#a6e22e">$PWD&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/&amp;#34;&lt;/span>$&lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>&lt;span style="color:#f92672">##*/}&lt;/span>&lt;span style="color:#e6db74">&amp;#34;)&amp;#34;&lt;/span>
+&lt;span style="color:#a6e22e">DIR&lt;/span>&lt;span style="color:#f92672">=&lt;/span>`dirname &amp;#34;${SCRIPT}&amp;#34;}`
+exec scala $0 &lt;span style="color:#a6e22e">$DIR&lt;/span> &lt;span style="color:#a6e22e">$SCRIPT&lt;/span>
+&lt;span style="color:#66d9ef">:&lt;/span>&lt;span style="color:#66d9ef">:!&lt;/span>&lt;span style="color:#66d9ef">#&lt;/span>
+&lt;span style="color:#66d9ef">import&lt;/span> &lt;span style="color:#66d9ef">java.io.File&lt;/span>
+&lt;span style="color:#66d9ef">object&lt;/span> &lt;span style="color:#a6e22e">App&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">def&lt;/span> main&lt;span style="color:#f92672">(&lt;/span>args&lt;span style="color:#66d9ef">:&lt;/span> &lt;span style="color:#66d9ef">Array&lt;/span>&lt;span style="color:#f92672">[&lt;/span>&lt;span style="color:#66d9ef">String&lt;/span>&lt;span style="color:#f92672">])&lt;/span>&lt;span style="color:#66d9ef">:&lt;/span> &lt;span style="color:#66d9ef">Unit&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">val&lt;/span> &lt;span style="color:#a6e22e">Array&lt;/span>&lt;span style="color:#f92672">(&lt;/span>directory&lt;span style="color:#f92672">,&lt;/span>script&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#66d9ef">=&lt;/span> args&lt;span style="color:#f92672">.&lt;/span>map&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">File&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">_&lt;/span>&lt;span style="color:#f92672">).&lt;/span>getAbsolutePath&lt;span style="color:#f92672">)&lt;/span>
+println&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Executing &amp;#39;%s&amp;#39; in directory &amp;#39;%s&amp;#39;&amp;#34;&lt;/span>&lt;span style="color:#f92672">.&lt;/span>format&lt;span style="color:#f92672">(&lt;/span>script&lt;span style="color:#f92672">,&lt;/span> directory&lt;span style="color:#f92672">))&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>魔法之处在哪里呢？看原文作者的解释：&lt;/p>
 &lt;blockquote>
 &lt;p>Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting&lt;/p>
 &lt;/blockquote></description></item><item><title>从java折腾到python</title><link>https://imsizon.com/2010/02/26/Toss-to-python-from-java/</link><pubDate>Fri, 26 Feb 2010 04:21:38 +0800</pubDate><guid>https://imsizon.com/2010/02/26/Toss-to-python-from-java/</guid><description>&lt;p>利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到了现在的1s左右，cpu时间消耗自然是大幅降低，另外gae python对静态文件配置的支持要比gae java好不少，可以指定文件的过期时间，可以进一步降低对服务器的资源消耗提高页面二次访问速度。这下估计每天访问量上到5000+（2010-03-01update：根据dashboard的资源消耗统计数据计算看可以支持50000+request/day，平均每个页面5个request的话也可以支撑10000+页面访问了），应该都不需要额外购买google的服务器配置了，购买虚拟主机的计划就往后搁置一下吧，估计上半年也没太多时间打理。&lt;/p>

@@ -74,22 +74,22 @@ Shell脚本中加点scala的料 | 萨内蒂的小跟班
 </header>
 <div class=post-content>
 <p>在bash脚本中直接写scala并且和普通脚本一样运行：</p>
-<pre tabindex=0><code class=language-sca data-lang=sca>#!scala
-#!/bin/sh
-SCRIPT=&quot;$(cd &quot;${0%/*}&quot; 2&gt;/dev/null; echo &quot;$PWD&quot;/&quot;${0##*/}&quot;)&quot;
-DIR=`dirname &quot;${SCRIPT}&quot;}`
-exec scala $0 $DIR $SCRIPT
-::!#
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-scala data-lang=scala><span style=color:#f92672>#!</span>scala
+<span style=color:#f92672>#!/</span>bin<span style=color:#f92672>/</span>sh
+<span style=color:#a6e22e>SCRIPT</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;$(cd &#34;</span>$<span style=color:#f92672>{</span><span style=color:#ae81ff>0</span><span style=color:#f92672>%/*}</span><span style=color:#e6db74>&#34; 2&gt;/dev/null; echo &#34;</span><span style=color:#a6e22e>$PWD</span><span style=color:#e6db74>&#34;/&#34;</span>$<span style=color:#f92672>{</span><span style=color:#ae81ff>0</span><span style=color:#f92672>##*/}</span><span style=color:#e6db74>&#34;)&#34;</span>
+<span style=color:#a6e22e>DIR</span><span style=color:#f92672>=</span>`dirname &#34;${SCRIPT}&#34;}`
+exec scala $0 <span style=color:#a6e22e>$DIR</span> <span style=color:#a6e22e>$SCRIPT</span>
+<span style=color:#66d9ef>:</span><span style=color:#66d9ef>:!</span><span style=color:#66d9ef>#</span>
 
-import java.io.File
+<span style=color:#66d9ef>import</span> <span style=color:#66d9ef>java.io.File</span>
 
-object App {
-  def main(args: Array[String]): Unit = {
-    val Array(directory,script) = args.map(new File(_).getAbsolutePath)
-    println(&quot;Executing '%s' in directory '%s'&quot;.format(script, directory))
-  }
-}
-</code></pre><p>魔法之处在哪里呢？看原文作者的解释：</p>
+<span style=color:#66d9ef>object</span> <span style=color:#a6e22e>App</span> <span style=color:#f92672>{</span>
+  <span style=color:#66d9ef>def</span> main<span style=color:#f92672>(</span>args<span style=color:#66d9ef>:</span> <span style=color:#66d9ef>Array</span><span style=color:#f92672>[</span><span style=color:#66d9ef>String</span><span style=color:#f92672>])</span><span style=color:#66d9ef>:</span> <span style=color:#66d9ef>Unit</span> <span style=color:#f92672>=</span> <span style=color:#f92672>{</span>
+    <span style=color:#66d9ef>val</span> <span style=color:#a6e22e>Array</span><span style=color:#f92672>(</span>directory<span style=color:#f92672>,</span>script<span style=color:#f92672>)</span> <span style=color:#66d9ef>=</span> args<span style=color:#f92672>.</span>map<span style=color:#f92672>(</span><span style=color:#66d9ef>new</span> <span style=color:#a6e22e>File</span><span style=color:#f92672>(</span><span style=color:#66d9ef>_</span><span style=color:#f92672>).</span>getAbsolutePath<span style=color:#f92672>)</span>
+    println<span style=color:#f92672>(</span><span style=color:#e6db74>&#34;Executing &#39;%s&#39; in directory &#39;%s&#39;&#34;</span><span style=color:#f92672>.</span>format<span style=color:#f92672>(</span>script<span style=color:#f92672>,</span> directory<span style=color:#f92672>))</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>}</span>
+</code></pre></div><p>魔法之处在哪里呢？看原文作者的解释：</p>
 <blockquote>
 <p>Notice the base code between #!/bin/sh and ::!#. This allows you to execute bash script (or whatever script you want) before evaluating this file as a Scala script. This can be pretty handy for certain tasks when doing system scripting</p>
 </blockquote>
