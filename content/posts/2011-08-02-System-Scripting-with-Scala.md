@@ -9,7 +9,7 @@ slug: System Scripting with Scala
 
 在bash脚本中直接写scala并且和普通脚本一样运行：
 
-```sca
+```scala
 #!scala
 #!/bin/sh
 SCRIPT="$(cd "${0%/*}" 2>/dev/null; echo "$PWD"/"${0##*/}")"
