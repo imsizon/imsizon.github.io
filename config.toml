@@ -10,7 +10,7 @@ disablePathToLower = true
 paginate = 5
 enableEmoji = true
 enableRobotsTXT = true
-googleAnalytics = "UA-11945266-2"
+googleAnalytics = "G-9B6T5L2C47"
 disqusShortname = "imsizon"
 
 [sitemap]
