@@ -1,132 +1,18 @@
-<!doctype html><html lang=zh-cn>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="chrome=1">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=robots content="noodp">
-<link rel=prev href=https://imsizon.com/2010/02/23/Winter-School/>
-<link rel=next href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/>
-<link rel=canonical href=https://imsizon.com/2010/02/26/Toss-to-python-from-java/>
-<link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<meta name=msapplication-TileColor content="#da532c">
-<meta name=theme-color content="#ffffff">
-<title>
-从java折腾到python | 萨内蒂的小跟班
-</title>
-<meta name=title content="从java折腾到python | 萨内蒂的小跟班">
-<link rel=stylesheet href=/font/iconfont.css>
-<link rel=stylesheet href=/css/main.min.css>
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="从java折腾到python">
-<meta name=twitter:description content="利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到">
-<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"从java折腾到python","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2010\/02\/26\/Toss-to-python-from-java\/"},"genre":"posts","wordcount":441,"url":"https:\/\/imsizon.com\/2010\/02\/26\/Toss-to-python-from-java\/","datePublished":"2010-02-26T04:21:38\u002b08:00","dateModified":"2010-02-26T04:21:38\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script>
-</head>
-<body>
-<div class=wrapper>
-<nav class=navbar>
-<div class=container>
-<div class="navbar-header header-logo">
-<a href=https://imsizon.com/>萨内蒂的小跟班</a>
-</div>
-<div class="menu navbar-right">
-<a class=menu-item href=/posts/ title>Blog</a>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><link rel=prev href=https://imsizon.com/2010/02/23/Winter-School/><link rel=next href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/><link rel=canonical href=https://imsizon.com/2010/02/26/Toss-to-python-from-java/><link rel='shortcut icon' type=image/x-icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"><title>从java折腾到python | 萨内蒂的小跟班</title><meta name=title content="从java折腾到python | 萨内蒂的小跟班"><link rel=stylesheet href=/font/iconfont.css><link rel=stylesheet href=/css/main.min.css><meta name=twitter:card content="summary"><meta name=twitter:title content="从java折腾到python"><meta name=twitter:description content="利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"从java折腾到python","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2010\/02\/26\/Toss-to-python-from-java\/"},"genre":"posts","wordcount":441,"url":"https:\/\/imsizon.com\/2010\/02\/26\/Toss-to-python-from-java\/","datePublished":"2010-02-26T04:21:38\u002b08:00","dateModified":"2010-02-26T04:21:38\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script></head><body><div class=wrapper><nav class=navbar><div class=container><div class="navbar-header header-logo"><a href=https://imsizon.com/>萨内蒂的小跟班</a></div><div class="menu navbar-right"><a class=menu-item href=/posts/ title>Blog</a>
 <a class=menu-item href=/categories/ title>Categories</a>
-<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;
-</div>
-</div>
-</nav>
-<nav class=navbar-mobile id=nav-mobile style=display:none>
-<div class=container>
-<div class=navbar-header>
-<div> <a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div>
-<div class=menu-toggle>
-<span></span><span></span><span></span>
-</div>
-</div>
-<div class=menu id=mobile-menu>
-<a class=menu-item href=/posts/ title>Blog</a>
-<a class=menu-item href=/categories/ title>Categories</a>
-</div>
-</div>
-</nav>
-<main class=main>
-<div class=container>
-<article class=post-warp>
-<header class=post-header>
-<h1 class=post-title>从java折腾到python</h1>
-<div class=post-meta>
-<a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
-<span class=post-time>
-<time datetime="Fri, 2010-02-26">Fri, 2010-02-26</time>
-</span>
+<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;</div></div></nav><nav class=navbar-mobile id=nav-mobile style=display:none><div class=container><div class=navbar-header><div><a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div><div class=menu-toggle><span></span><span></span><span></span></div></div><div class=menu id=mobile-menu><a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a></div></div></nav><main class=main><div class=container><article class=post-warp><header class=post-header><h1 class=post-title>从java折腾到python</h1><div class=post-meta><a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
+<span class=post-time><time datetime="Fri, 2010-02-26">Fri, 2010-02-26</time></span>
 <i class="iconfont icon-folder"></i>
-<span class=post-category>
-<a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/> 杂记 </a>
-</span>
+<span class=post-category><a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/>杂记</a></span>
 <i class="iconfont icon-timer"></i>
-1 min
-</div>
-</header>
-<div class=post-content>
-<p>利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到了现在的1s左右，cpu时间消耗自然是大幅降低，另外gae python对静态文件配置的支持要比gae java好不少，可以指定文件的过期时间，可以进一步降低对服务器的资源消耗提高页面二次访问速度。这下估计每天访问量上到5000+（2010-03-01update：根据dashboard的资源消耗统计数据计算看可以支持50000+request/day，平均每个页面5个request的话也可以支撑10000+页面访问了），应该都不需要额外购买google的服务器配置了，购买虚拟主机的计划就往后搁置一下吧，估计上半年也没太多时间打理。</p>
-<p>凌晨的比赛国米终于坚挺了一把，2：1把车仔拿下，真是让内拉祖里们内牛满面呐，希望下回合客场能继续保持本场的防守水准和反击效率。曾哥的禁区内扣球过人射门简直是如臻化境，屡试不爽了现在，看来以后得以信曾哥为主了。</p>
-</div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span>:</span>
-<span>萨内蒂的小跟班 </span>
-</p>
-<p class=copyright-item>
-<span>:</span>
-<span>441</span>
-</p>
-<p class=copyright-item>
-<span>:</span>
-<span>
-<a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2010%2f02%2f26%2fToss-to-python-from-java%2f&text=%e4%bb%8ejava%e6%8a%98%e8%85%be%e5%88%b0python&via=JZ4EverFan" target=_blank title="Share on Twitter">
-<i class="iconfont icon-twitter"></i>
-</a>
-</span>
-</p>
-<p class=copyright-item>
-Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a>
-</p>
-</div>
-<div class=post-tags>
-<section>
-<a href=javascript:window.history.back();></a></span> ·
-<span><a href=https://imsizon.com/></a></span>
-</section>
-</div>
-<div class=post-nav>
-<a href=https://imsizon.com/2010/02/23/Winter-School/ class=prev rel=prev title=冬日校园><i class="iconfont icon-dajiantou"></i>&nbsp;冬日校园</a>
-<a href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/ class=next rel=next title=Shell脚本中加点scala的料>Shell脚本中加点scala的料&nbsp;<i class="iconfont icon-xiaojiantou"></i></a>
-</div>
-<div class=post-comment>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='imsizon',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-</article>
-</div>
-</main>
-<footer class=footer>
-<div class=copyright>
-&copy;
+1 min</div></header><div class=post-content><p>利用闲闲散散的时间终于把博客用python重新实现完了，这页面加载速度，真是让人泪流满面。log中看到的首次页面加载时间从原来的10+s降到了现在的1s左右，cpu时间消耗自然是大幅降低，另外gae python对静态文件配置的支持要比gae java好不少，可以指定文件的过期时间，可以进一步降低对服务器的资源消耗提高页面二次访问速度。这下估计每天访问量上到5000+（2010-03-01update：根据dashboard的资源消耗统计数据计算看可以支持50000+request/day，平均每个页面5个request的话也可以支撑10000+页面访问了），应该都不需要额外购买google的服务器配置了，购买虚拟主机的计划就往后搁置一下吧，估计上半年也没太多时间打理。</p><p>凌晨的比赛国米终于坚挺了一把，2：1把车仔拿下，真是让内拉祖里们内牛满面呐，希望下回合客场能继续保持本场的防守水准和反击效率。曾哥的禁区内扣球过人射门简直是如臻化境，屡试不爽了现在，看来以后得以信曾哥为主了。</p></div><div class=post-copyright><p class=copyright-item><span>:</span>
+<span>萨内蒂的小跟班</span></p><p class=copyright-item><span>:</span>
+<span>441</span></p><p class=copyright-item><span>:</span>
+<span><a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2010%2f02%2f26%2fToss-to-python-from-java%2f&text=%e4%bb%8ejava%e6%8a%98%e8%85%be%e5%88%b0python&via=JZ4EverFan" target=_blank title="Share on Twitter"><i class="iconfont icon-twitter"></i></a></span></p><p class=copyright-item>Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></p></div><div class=post-tags><section><a href=javascript:window.history.back();></a></span> ·
+<span><a href=https://imsizon.com/></a></span></section></div><div class=post-nav><a href=https://imsizon.com/2010/02/23/Winter-School/ class=prev rel=prev title=冬日校园><i class="iconfont icon-dajiantou"></i>&nbsp;冬日校园</a>
+<a href=https://imsizon.com/2011/08/02/System-Scripting-with-Scala/ class=next rel=next title=Shell脚本中加点scala的料>Shell脚本中加点scala的料&nbsp;<i class="iconfont icon-xiaojiantou"></i></a></div><div class=post-comment><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var t,e=document.createElement('script');e.type='text/javascript',e.async=!0,t='imsizon',e.src='//'+t+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(e)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></main><footer class=footer><div class=copyright>&copy;
 <span itemprop=copyrightYear>2009 - 2022</span>
-<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> | </span>
-<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span>
-</div>
-</footer>
-<script src=/js/vendor_no_gallery.min.js async></script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-11945266-2','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-</div>
-</body>
-</html>
+<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> |</span>
+<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span></div></footer><script src=/js/vendor_no_gallery.min.js async></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9B6T5L2C47','auto'),ga('send','pageview'))</script><script async src=https://www.google-analytics.com/analytics.js></script></div></body></html>

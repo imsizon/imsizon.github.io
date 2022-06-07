@@ -1,141 +1,18 @@
-<!doctype html><html lang=zh-cn>
-<head>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="chrome=1">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=robots content="noodp">
-<link rel=prev href=https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/>
-<link rel=next href=https://imsizon.com/2010/02/23/Winter-School/>
-<link rel=canonical href=https://imsizon.com/2010/01/26/More-than-life-endless-torment/>
-<link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
-<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
-<link rel=manifest href=/site.webmanifest>
-<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
-<meta name=msapplication-TileColor content="#da532c">
-<meta name=theme-color content="#ffffff">
-<title>
-生命不止，折腾不息 | 萨内蒂的小跟班
-</title>
-<meta name=title content="生命不止，折腾不息 | 萨内蒂的小跟班">
-<link rel=stylesheet href=/font/iconfont.css>
-<link rel=stylesheet href=/css/main.min.css>
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="生命不止，折腾不息">
-<meta name=twitter:description content="每次看着系统日志里面博客的启动时间长达10s以上我就有股冲动整个完全由自己控制的虚拟主机，8过转了一圈也没发现什么便宜的支持java的方案，">
-<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"生命不止，折腾不息","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2010\/01\/26\/More-than-life-endless-torment\/"},"genre":"posts","wordcount":470,"url":"https:\/\/imsizon.com\/2010\/01\/26\/More-than-life-endless-torment\/","datePublished":"2010-01-26T06:20:00\u002b08:00","dateModified":"2010-01-26T06:20:00\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script>
-</head>
-<body>
-<div class=wrapper>
-<nav class=navbar>
-<div class=container>
-<div class="navbar-header header-logo">
-<a href=https://imsizon.com/>萨内蒂的小跟班</a>
-</div>
-<div class="menu navbar-right">
-<a class=menu-item href=/posts/ title>Blog</a>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><link rel=prev href=https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/><link rel=next href=https://imsizon.com/2010/02/23/Winter-School/><link rel=canonical href=https://imsizon.com/2010/01/26/More-than-life-endless-torment/><link rel='shortcut icon' type=image/x-icon href=/favicon.ico><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content="#da532c"><meta name=theme-color content="#ffffff"><title>生命不止，折腾不息 | 萨内蒂的小跟班</title><meta name=title content="生命不止，折腾不息 | 萨内蒂的小跟班"><link rel=stylesheet href=/font/iconfont.css><link rel=stylesheet href=/css/main.min.css><meta name=twitter:card content="summary"><meta name=twitter:title content="生命不止，折腾不息"><meta name=twitter:description content="每次看着系统日志里面博客的启动时间长达10s以上我就有股冲动整个完全由自己控制的虚拟主机，8过转了一圈也没发现什么便宜的支持java的方案，"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"生命不止，折腾不息","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/imsizon.com\/2010\/01\/26\/More-than-life-endless-torment\/"},"genre":"posts","wordcount":470,"url":"https:\/\/imsizon.com\/2010\/01\/26\/More-than-life-endless-torment\/","datePublished":"2010-01-26T06:20:00\u002b08:00","dateModified":"2010-01-26T06:20:00\u002b08:00","author":{"@type":"Person","name":"萨内蒂的小跟班"},"description":""}</script></head><body><div class=wrapper><nav class=navbar><div class=container><div class="navbar-header header-logo"><a href=https://imsizon.com/>萨内蒂的小跟班</a></div><div class="menu navbar-right"><a class=menu-item href=/posts/ title>Blog</a>
 <a class=menu-item href=/categories/ title>Categories</a>
-<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;
-</div>
-</div>
-</nav>
-<nav class=navbar-mobile id=nav-mobile style=display:none>
-<div class=container>
-<div class=navbar-header>
-<div> <a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div>
-<div class=menu-toggle>
-<span></span><span></span><span></span>
-</div>
-</div>
-<div class=menu id=mobile-menu>
-<a class=menu-item href=/posts/ title>Blog</a>
-<a class=menu-item href=/categories/ title>Categories</a>
-</div>
-</div>
-</nav>
-<main class=main>
-<div class=container>
-<article class=post-warp>
-<header class=post-header>
-<h1 class=post-title>生命不止，折腾不息</h1>
-<div class=post-meta>
-<a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
-<span class=post-time>
-<time datetime="Tue, 2010-01-26">Tue, 2010-01-26</time>
-</span>
+<a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;</div></div></nav><nav class=navbar-mobile id=nav-mobile style=display:none><div class=container><div class=navbar-header><div><a href=javascript:void(0); class=theme-switch><i class="iconfont icon-sun"></i></a>&nbsp;<a href=https://imsizon.com/>萨内蒂的小跟班</a></div><div class=menu-toggle><span></span><span></span><span></span></div></div><div class=menu id=mobile-menu><a class=menu-item href=/posts/ title>Blog</a>
+<a class=menu-item href=/categories/ title>Categories</a></div></div></nav><main class=main><div class=container><article class=post-warp><header class=post-header><h1 class=post-title>生命不止，折腾不息</h1><div class=post-meta><a href=https://imsizon.com/ rel=author>萨内蒂的小跟班</a> ♥
+<span class=post-time><time datetime="Tue, 2010-01-26">Tue, 2010-01-26</time></span>
 <i class="iconfont icon-folder"></i>
-<span class=post-category>
-<a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/> 杂记 </a>
-</span>
+<span class=post-category><a href=https://imsizon.com/categories/%E6%9D%82%E8%AE%B0/>杂记</a></span>
 <i class="iconfont icon-timer"></i>
-1 min
-</div>
-</header>
-<div class=post-content>
-<p>每次看着系统日志里面博客的启动时间长达10s以上我就有股冲动整个完全由自己控制的虚拟主机，8过转了一圈也没发现什么便宜的支持java的方案，无奈之下就想拖鞋一下用个PHP的算了，好用的话顺带当个相册使了，看着<a href=http://typecho.org>typecho</a>就挺不错的，顺便也能把在Godaddy买域名免费赠送的10G虚拟主机空间给用上了。</p>
-<p>于是屁颠屁颠的开主机，设mysql，安装typecho，把一切都弄好之后，才悲剧的发现分配给我的ip已经被和谐掉了，不翻墙无法访问（奇怪的是用公司电信通的网络完全木有问题），怒啊~~~~~</p>
-<p>贼心不死的把虚拟主机删了再建刷新ip，如是几把分配的ip依然在墙外，好吧，只能望墙兴叹了，8是每个访问我博客的人都会翻墙的。</p>
-<p>转过头来继续打google app engine的主意，看起来python版本的冷启动速度貌似还可以，那就用Django再造一个轮子吧，顺带深入复习一下python的使用，嗯哼，这个基本上就是接下来一段时间业余生活的主要消遣了。</p>
-<p>最后怒赞一把球队，9人应战的情况下完爆隔壁，特别点名表扬圣塞、曾哥、潘德夫、萨队、麦孔，以下是贴图时间：</p>
-<p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/cr/2010/0125/3570656238.jpg alt=潘德夫助攻曾哥首开纪录 class=lazyload><figcaption class=image-caption>潘德夫助攻曾哥首开纪录</figcaption></figure></p>
-<p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807484F44DT20100125054157.jpg alt=潘德夫任意球破门 class=lazyload><figcaption class=image-caption>潘德夫任意球破门</figcaption></figure></p>
-<p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807506F44DT20100125063257.jpg alt=圣塞扑掉小罗点球 class=lazyload><figcaption class=image-caption>圣塞扑掉小罗点球</figcaption></figure></p>
-<p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807445F44DT20100125051050.jpg alt=萨队的防守依旧生猛 class=lazyload><figcaption class=image-caption>萨队的防守依旧生猛</figcaption></figure></p>
-<p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807510F44DT20100125063755.JPG alt=可爱的大马，戴面具讽刺家兔 class=lazyload><figcaption class=image-caption>可爱的大马，戴面具讽刺家兔</figcaption></figure></p>
-</div>
-<div class=post-copyright>
-<p class=copyright-item>
-<span>:</span>
-<span>萨内蒂的小跟班 </span>
-</p>
-<p class=copyright-item>
-<span>:</span>
-<span>470</span>
-</p>
-<p class=copyright-item>
-<span>:</span>
-<span>
-<a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2010%2f01%2f26%2fMore-than-life-endless-torment%2f&text=%e7%94%9f%e5%91%bd%e4%b8%8d%e6%ad%a2%ef%bc%8c%e6%8a%98%e8%85%be%e4%b8%8d%e6%81%af&via=JZ4EverFan" target=_blank title="Share on Twitter">
-<i class="iconfont icon-twitter"></i>
-</a>
-</span>
-</p>
-<p class=copyright-item>
-Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a>
-</p>
-</div>
-<div class=post-tags>
-<section>
-<a href=javascript:window.history.back();></a></span> ·
-<span><a href=https://imsizon.com/></a></span>
-</section>
-</div>
-<div class=post-nav>
-<a href=https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/ class=prev rel=prev title=Gae上使用Play框架的几个问题><i class="iconfont icon-dajiantou"></i>&nbsp;Gae上使用Play框架的几个问题</a>
-<a href=https://imsizon.com/2010/02/23/Winter-School/ class=next rel=next title=冬日校园>冬日校园&nbsp;<i class="iconfont icon-xiaojiantou"></i></a>
-</div>
-<div class=post-comment>
-<div id=disqus_thread></div>
-<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='imsizon',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
-<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
-<a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
-</div>
-</article>
-</div>
-</main>
-<footer class=footer>
-<div class=copyright>
-&copy;
+1 min</div></header><div class=post-content><p>每次看着系统日志里面博客的启动时间长达10s以上我就有股冲动整个完全由自己控制的虚拟主机，8过转了一圈也没发现什么便宜的支持java的方案，无奈之下就想拖鞋一下用个PHP的算了，好用的话顺带当个相册使了，看着<a href=http://typecho.org>typecho</a>就挺不错的，顺便也能把在Godaddy买域名免费赠送的10G虚拟主机空间给用上了。</p><p>于是屁颠屁颠的开主机，设mysql，安装typecho，把一切都弄好之后，才悲剧的发现分配给我的ip已经被和谐掉了，不翻墙无法访问（奇怪的是用公司电信通的网络完全木有问题），怒啊~~~~~</p><p>贼心不死的把虚拟主机删了再建刷新ip，如是几把分配的ip依然在墙外，好吧，只能望墙兴叹了，8是每个访问我博客的人都会翻墙的。</p><p>转过头来继续打google app engine的主意，看起来python版本的冷启动速度貌似还可以，那就用Django再造一个轮子吧，顺带深入复习一下python的使用，嗯哼，这个基本上就是接下来一段时间业余生活的主要消遣了。</p><p>最后怒赞一把球队，9人应战的情况下完爆隔壁，特别点名表扬圣塞、曾哥、潘德夫、萨队、麦孔，以下是贴图时间：</p><p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/cr/2010/0125/3570656238.jpg alt=潘德夫助攻曾哥首开纪录 class=lazyload><figcaption class=image-caption>潘德夫助攻曾哥首开纪录</figcaption></figure></p><p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807484F44DT20100125054157.jpg alt=潘德夫任意球破门 class=lazyload><figcaption class=image-caption>潘德夫任意球破门</figcaption></figure></p><p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i1.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807506F44DT20100125063257.jpg alt=圣塞扑掉小罗点球 class=lazyload><figcaption class=image-caption>圣塞扑掉小罗点球</figcaption></figure></p><p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807445F44DT20100125051050.jpg alt=萨队的防守依旧生猛 class=lazyload><figcaption class=image-caption>萨队的防守依旧生猛</figcaption></figure></p><p><figure><img src=/images/ring.svg data-sizes=auto data-src=https://i3.sinaimg.cn/ty/g/p/2010-01-25/U3948P6T12D4807510F44DT20100125063755.JPG alt=可爱的大马，戴面具讽刺家兔 class=lazyload><figcaption class=image-caption>可爱的大马，戴面具讽刺家兔</figcaption></figure></p></div><div class=post-copyright><p class=copyright-item><span>:</span>
+<span>萨内蒂的小跟班</span></p><p class=copyright-item><span>:</span>
+<span>470</span></p><p class=copyright-item><span>:</span>
+<span><a href="//twitter.com/share?url=https%3a%2f%2fimsizon.com%2f2010%2f01%2f26%2fMore-than-life-endless-torment%2f&text=%e7%94%9f%e5%91%bd%e4%b8%8d%e6%ad%a2%ef%bc%8c%e6%8a%98%e8%85%be%e4%b8%8d%e6%81%af&via=JZ4EverFan" target=_blank title="Share on Twitter"><i class="iconfont icon-twitter"></i></a></span></p><p class=copyright-item>Released under <a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></p></div><div class=post-tags><section><a href=javascript:window.history.back();></a></span> ·
+<span><a href=https://imsizon.com/></a></span></section></div><div class=post-nav><a href=https://imsizon.com/2009/12/16/Gae-using-the-Play-Framework-several-problems/ class=prev rel=prev title=Gae上使用Play框架的几个问题><i class="iconfont icon-dajiantou"></i>&nbsp;Gae上使用Play框架的几个问题</a>
+<a href=https://imsizon.com/2010/02/23/Winter-School/ class=next rel=next title=冬日校园>冬日校园&nbsp;<i class="iconfont icon-xiaojiantou"></i></a></div><div class=post-comment><div id=disqus_thread></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var t,e=document.createElement('script');e.type='text/javascript',e.async=!0,t='imsizon',e.src='//'+t+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(e)})()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></main><footer class=footer><div class=copyright>&copy;
 <span itemprop=copyrightYear>2009 - 2022</span>
-<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> | </span>
-<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span>
-</div>
-</footer>
-<link crossorigin=anonymous integrity=sha384-yziQACfvCVwLqVFLqkWBYRO3XeA4EqzfXKGwaWnenYn5XzqfJFlFdKEmvutIQdKb href=https://lib.baomitu.com/lightgallery/1.10.0/css/lightgallery.min.css rel=stylesheet>
-<script src=/js/vendor_gallery.min.js async></script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-11945266-2','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-</div>
-</body>
-</html>
+<span class=author itemprop=copyrightHolder><a href=https://imsizon.com/>萨内蒂的小跟班</a> |</span>
+<span>Crafted with ❤️ by <a href=https://github.com/Fastbyte01/KeepIt target=_blank rel="external nofollow noopener noreffer">KeepIt</a> & <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreffer">Hugo</a></span></div></footer><link crossorigin=anonymous integrity=sha384-yziQACfvCVwLqVFLqkWBYRO3XeA4EqzfXKGwaWnenYn5XzqfJFlFdKEmvutIQdKb href=https://lib.baomitu.com/lightgallery/1.10.0/css/lightgallery.min.css rel=stylesheet><script src=/js/vendor_gallery.min.js async></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-9B6T5L2C47','auto'),ga('send','pageview'))</script><script async src=https://www.google-analytics.com/analytics.js></script></div></body></html>
